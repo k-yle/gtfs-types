@@ -6,7 +6,7 @@ export const enum Occupancy {
   CRUSHED_STANDING_ROOM_ONLY,
   FULL,
   NOT_ACCEPTING_PASSENGERS,
-  UNKNOWN,
+  UNKNOWN = -1,
 }
 export const enum Congestion {
   UNKNOWN_CONGESTION_LEVEL,
