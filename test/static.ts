@@ -42,6 +42,13 @@ const stop: Stop = {
   location_type: 1,
   parent_station: "40910",
   stop_timezone: "UTC+13",
+  wheelchair_boarding: 0,
+  level_id: "3333",
+  platform_code: "3236",
+};
+
+const stopMinimal: Stop = {
+  stop_id: "3235",
 };
 
 const trip: Trip = {
