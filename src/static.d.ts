@@ -39,6 +39,13 @@ export const enum WheelchairBoardingType {
   NOT_ACCESSIBLE
 }
 
+export const enum PickupDropoffType {
+  CONTINUOUS = 0,
+  NON_CONTINUOUS,
+  MUST_CONTACT_AGENCY,
+  MUST_CONTACT_DRIVER
+}
+
 // files
 
 export interface Agency {
@@ -71,14 +78,17 @@ export interface Stop {
 
 export interface Route {
   route_id: string;
-  agency_id: string;
-  route_short_name: string;
-  route_long_name: string;
-  route_desc: string;
+  agency_id?: string;
+  route_short_name?: string;
+  route_long_name?: string;
+  route_desc?: string;
   route_type: VehicleType;
-  route_url: string;
-  route_color: string;
-  route_text_color: string;
+  route_url?: string;
+  route_color?: string;
+  route_text_color?: string;
+  route_sort_order?: number;
+  continuous_pickup?: PickupDropoffType | '';
+  continuous_drop_off?: PickupDropoffType | '';
 }
 
 export interface Trip {

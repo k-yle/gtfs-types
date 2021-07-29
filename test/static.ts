@@ -11,6 +11,15 @@ const myRoute: Route = {
   route_url: "https://at.govt.nz",
   route_color: "#1e90ff",
   route_text_color: "#fff",
+  route_sort_order: 2,
+  continuous_pickup: 1,
+  continuous_drop_off: '',
+};
+
+const myRouteMinimal: Route = {
+  // @ts-expect-error numbers are invalid
+  route_id: 123456,
+  route_type: VehicleType.BUS,
 };
 
 const agency: Agency = {
