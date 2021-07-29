@@ -95,12 +95,13 @@ export interface Trip {
   route_id: string;
   service_id: string;
   trip_id: string;
-  trip_headsign: string;
-  direction_id: 0 | 1;
-  block_id: string;
-  shape_id: string;
-  wheelchair_accessible: GTFSBool;
-  bikes_allowed: GTFSBool;
+  trip_headsign?: string;
+  trip_short_name?: string;
+  direction_id?: 0 | 1;
+  block_id?: string;
+  shape_id?: string;
+  wheelchair_accessible?: GTFSBool;
+  bikes_allowed?: GTFSBool;
 }
 
 export interface StopTime {

@@ -65,9 +65,16 @@ const trip: Trip = {
   service_id: "acsdfc",
   trip_id: "sdfs",
   trip_headsign: "Mātiatia",
+  trip_short_name: "sdfs morning",
   direction_id: 1,
   block_id: "abc",
   shape_id: "asd",
   wheelchair_accessible: GTFSBool.YES,
   bikes_allowed: GTFSBool.NOT_SPECIFIED,
+};
+
+const tripMinimal: Trip = {
+  route_id: "sdf",
+  service_id: "acsdfc",
+  trip_id: "sdfs",
 };
