@@ -21,6 +21,13 @@ const agency: Agency = {
   agency_lang: "en",
   agency_phone: "09 301 0101",
   agency_fare_url: "https://metlink.org.nz/tickets",
+  agency_email: "info@metlink.org.nz",
+};
+
+const agencyMinimal: Agency = {
+  agency_name: "GWRC",
+  agency_url: "https://metlink.org.nz",
+  agency_timezone: "UTC+12",
 };
 
 const stop: Stop = {
