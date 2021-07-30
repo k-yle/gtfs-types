@@ -13,7 +13,7 @@ const myRoute: Route = {
   route_text_color: "#fff",
   route_sort_order: 2,
   continuous_pickup: 1,
-  continuous_drop_off: '',
+  continuous_drop_off: "",
 };
 
 const myRouteMinimal: Route = {

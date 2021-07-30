@@ -30,20 +30,20 @@ export const enum LocationType {
   STATION,
   ENTRANCE_EXIST,
   GENERIC_NODE,
-  BOARDING_AREA
+  BOARDING_AREA,
 }
 
 export const enum WheelchairBoardingType {
   UNKNOWN_OR_INHERIT = 0,
   ACCESSIBLE,
-  NOT_ACCESSIBLE
+  NOT_ACCESSIBLE,
 }
 
 export const enum PickupDropoffType {
   CONTINUOUS = 0,
   NON_CONTINUOUS,
   MUST_CONTACT_AGENCY,
-  MUST_CONTACT_DRIVER
+  MUST_CONTACT_DRIVER,
 }
 
 // files
@@ -71,7 +71,7 @@ export interface Stop {
   location_type?: LocationType;
   parent_station?: string;
   stop_timezone?: string;
-  wheelchair_boarding?: WheelchairBoardingType | '';
+  wheelchair_boarding?: WheelchairBoardingType | "";
   level_id?: string;
   platform_code?: string;
 }
@@ -87,8 +87,8 @@ export interface Route {
   route_color?: string;
   route_text_color?: string;
   route_sort_order?: number;
-  continuous_pickup?: PickupDropoffType | '';
-  continuous_drop_off?: PickupDropoffType | '';
+  continuous_pickup?: PickupDropoffType | "";
+  continuous_drop_off?: PickupDropoffType | "";
 }
 
 export interface Trip {
