@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars, no-unused-vars */
 import { GTFSRealtime } from "..";
 
 const APIResponse: GTFSRealtime = {
