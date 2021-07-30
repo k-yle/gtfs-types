@@ -25,54 +25,83 @@ export const enum TransferType {
   NO_TRANSFER_POSSIBLE,
 }
 
+export const enum LocationType {
+  STOP = 0,
+  STATION,
+  ENTRANCE_EXIST,
+  GENERIC_NODE,
+  BOARDING_AREA
+}
+
+export const enum WheelchairBoardingType {
+  UNKNOWN_OR_INHERIT = 0,
+  ACCESSIBLE,
+  NOT_ACCESSIBLE
+}
+
+export const enum PickupDropoffType {
+  CONTINUOUS = 0,
+  NON_CONTINUOUS,
+  MUST_CONTACT_AGENCY,
+  MUST_CONTACT_DRIVER
+}
+
 // files
 
 export interface Agency {
-  agency_id: string;
+  agency_id?: string;
   agency_name: string;
   agency_url: string;
   agency_timezone: string;
-  agency_lang: string;
-  agency_phone: string;
-  agency_fare_url: string;
+  agency_lang?: string;
+  agency_phone?: string;
+  agency_fare_url?: string;
+  agency_email?: string;
 }
 
 export interface Stop {
   stop_id: string;
-  stop_code: string;
-  stop_name: string;
-  stop_desc: string;
-  stop_lat: number;
-  stop_lon: number;
-  zone_id: string;
-  stop_url: string;
-  location_type: 0 | 1;
-  parent_station: string;
-  stop_timezone: string;
+  stop_code?: string;
+  stop_name?: string;
+  stop_desc?: string;
+  stop_lat?: number;
+  stop_lon?: number;
+  zone_id?: string;
+  stop_url?: string;
+  location_type?: LocationType;
+  parent_station?: string;
+  stop_timezone?: string;
+  wheelchair_boarding?: WheelchairBoardingType | '';
+  level_id?: string;
+  platform_code?: string;
 }
 
 export interface Route {
   route_id: string;
-  agency_id: string;
-  route_short_name: string;
-  route_long_name: string;
-  route_desc: string;
+  agency_id?: string;
+  route_short_name?: string;
+  route_long_name?: string;
+  route_desc?: string;
   route_type: VehicleType;
-  route_url: string;
-  route_color: string;
-  route_text_color: string;
+  route_url?: string;
+  route_color?: string;
+  route_text_color?: string;
+  route_sort_order?: number;
+  continuous_pickup?: PickupDropoffType | '';
+  continuous_drop_off?: PickupDropoffType | '';
 }
 
 export interface Trip {
   route_id: string;
   service_id: string;
   trip_id: string;
-  trip_headsign: string;
-  direction_id: 0 | 1;
-  block_id: string;
-  shape_id: string;
-  wheelchair_accessible: GTFSBool;
-  bikes_allowed: GTFSBool;
+  trip_headsign?: string;
+  trip_short_name?: string;
+  direction_id?: 0 | 1;
+  block_id?: string;
+  shape_id?: string;
+  wheelchair_accessible?: GTFSBool;
+  bikes_allowed?: GTFSBool;
 }
 
 export interface StopTime {
