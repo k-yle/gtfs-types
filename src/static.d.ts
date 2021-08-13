@@ -8,6 +8,7 @@ export const enum GTFSBool {
   NO,
 }
 export const enum Alight {
+  AVAILABLE = 0,
   NOT_AVAILABLE,
   MUST_CONTACT_AGENCY,
   MUST_CONTACT_DRIVER,
@@ -106,15 +107,17 @@ export interface Trip {
 
 export interface StopTime {
   trip_id: string;
-  arrival_time: string;
-  departure_time: string;
+  arrival_time?: string;
+  departure_time?: string;
   stop_id: string;
   stop_sequence: number;
-  stop_headsign: string;
-  pickup_type: Alight;
-  drop_off_type: Alight;
-  shape_dist_traveled: number;
-  timepoint: 0 | 1;
+  stop_headsign?: string;
+  pickup_type?: Alight;
+  drop_off_type?: Alight;
+  continuous_pickup?: Alight;
+  continuous_drop_off?: Alight;
+  shape_dist_traveled?: number;
+  timepoint?: 0 | 1 | "";
 }
 
 export interface Calendar {
@@ -141,7 +144,7 @@ export interface Shapes {
   shape_pt_lat: number;
   shape_pt_lon: number;
   shape_pt_sequence: number;
-  shape_dist_traveled: number;
+  shape_dist_traveled?: number;
 }
 
 export interface Frequencies {
@@ -149,7 +152,7 @@ export interface Frequencies {
   start_time: string;
   end_time: string;
   headway_secs: number;
-  exact_times: 0 | 1;
+  exact_times?: 0 | 1 | "";
 }
 
 export interface Transfers {
