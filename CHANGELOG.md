@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.1.0 (2021-08-14)
+
+- fix: Trip, StopTime, Shapes, Frequencies: Make some fields optional
+
 ## 2.0.0 (2021-07-27)
 
 - feat: add new properties like `continuous_pickup` and `platform_code`
