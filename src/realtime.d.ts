@@ -65,7 +65,7 @@ export interface Entity {
   vehicle?: VehicleUpdate;
   is_deleted: boolean;
 }
-interface timeRange {
+interface active_period {
   start?: Date;
   end?: Date;
 }
@@ -74,12 +74,18 @@ interface TripDescriptor {
   start_time?: string;
   end_time?: string;
 }
-interface entitySelector {
+interface informed_entity_route {
   agency_id?: string;
   route_id?: string;
   route_type?: number;
-  stop_id?: string;
+}
+interface informed_entity_trip {
+  agency_id?: string;
   trip?: TripDescriptor;
+}
+interface informed_entity_stop {
+  agency_id?: string;
+  stop_id?: string;
 }
 const enum Cause {
   UNKNOWN_CAUSE,
@@ -111,8 +117,8 @@ interface translatedString {
   language: string;
 }
 export interface Alert {
-  timeRange: timeRange;
-  entitySelector: Array<entitySelector>;
+  active_period: active_period;
+  informed_entity: Array<informed_entity_route | informed_entity_trip | informed_entity_stop>;
   cause: cause;
   effect: effect;
   url: string;
