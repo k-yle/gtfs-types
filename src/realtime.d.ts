@@ -15,13 +15,11 @@ export const enum Congestion {
   CONGESTION,
   SEVERE_CONGESTION,
 }
-
 declare interface Time {
   delay: number;
   time: number;
   uncertainty: number;
 }
-
 interface RealTimeTrip {
   trip_id: string;
   start_time: string;
@@ -35,7 +33,6 @@ interface Vehicle {
   label: string;
   license_plate: string;
 }
-
 export interface TripUpdate {
   trip: RealTimeTrip;
   stop_time_update?: {
@@ -68,7 +65,59 @@ export interface Entity {
   vehicle?: VehicleUpdate;
   is_deleted: boolean;
 }
-
+interface timeRange {
+  start?: Date;
+  end?: Date;
+}
+interface TripDescriptor {
+  trip_id: string;
+  start_time?: string;
+  end_time?: string;
+}
+interface entitySelector {
+  agency_id?: string;
+  route_id?: string;
+  route_type?: number;
+  stop_id?: string;
+  trip?: TripDescriptor;
+}
+const enum Cause {
+  UNKNOWN_CAUSE,
+  OTHER_CAUSE,
+  TECHNICAL_PROBLEM,
+  STRIKE,
+  DEMONSTRATION,
+  ACCIDENT,
+  HOLIDAY,
+  WEATHER,
+  MAINTENANCE,
+  CONSTRUCTION,
+  POLICE_ACTIVITY,
+  MEDICAL_EMERGENCY,
+}
+const enum Effect {
+  NO_SERVICE,
+  REDUCED_SERVICE,
+  SIGNIFICANT_DELAYS,
+  DETOUR,
+  ADDITIONAL_SERVICE,
+  MODIFIED_SERVICE,
+  OTHER_EFFECT,
+  UNKNOWN_EFFECT,
+  STOP_MOVED,
+}
+interface translatedString {
+  text: string;
+  language: string;
+}
+export interface Alert {
+  timeRange: timeRange;
+  entitySelector: Array<entitySelector>;
+  cause: cause;
+  effect: effect;
+  url: string;
+  translatedString: translatedString;
+}
 export interface GTFSRealtime {
   status: string;
   response: {
