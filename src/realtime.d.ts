@@ -65,25 +65,25 @@ export interface Entity {
   vehicle?: VehicleUpdate;
   is_deleted: boolean;
 }
-interface active_period {
-  start?: Date;
-  end?: Date;
+interface ActivePeriod {
+  start?: number;
+  end?: number;
 }
 interface TripDescriptor {
   trip_id: string;
   start_time?: string;
   end_time?: string;
 }
-interface informed_entity_route {
+interface InformedEntityRoute {
   agency_id?: string;
   route_id?: string;
   route_type?: number;
 }
-interface informed_entity_trip {
+interface InformedEntityTrip {
   agency_id?: string;
   trip?: TripDescriptor;
 }
-interface informed_entity_stop {
+interface InformedEntityStop {
   agency_id?: string;
   stop_id?: string;
 }
@@ -112,17 +112,17 @@ const enum Effect {
   UNKNOWN_EFFECT,
   STOP_MOVED,
 }
-interface translatedString {
+interface TranslatedString {
   text: string;
   language: string;
 }
 export interface Alert {
-  active_period: active_period;
-  informed_entity: Array<informed_entity_route | informed_entity_trip | informed_entity_stop>;
-  cause: cause;
-  effect: effect;
+  active_period: ActivePeriod;
+  informed_entity: Array<InformedEntityRoute | InformedEntityTrip | InformedEntityStop>;
+  cause: Cause;
+  effect: Effect;
   url: string;
-  translatedString: translatedString;
+  translatedString: TranslatedString;
 }
 export interface GTFSRealtime {
   status: string;
