@@ -8,6 +8,7 @@ export const enum Occupancy {
   NOT_ACCEPTING_PASSENGERS,
   UNKNOWN = -1,
 }
+
 export const enum Congestion {
   UNKNOWN_CONGESTION_LEVEL,
   RUNNING_SMOOTHLY,
@@ -15,11 +16,13 @@ export const enum Congestion {
   CONGESTION,
   SEVERE_CONGESTION,
 }
+
 declare interface Time {
   delay: number;
   time: number;
   uncertainty: number;
 }
+
 interface RealTimeTrip {
   trip_id: string;
   start_time: string;
@@ -28,11 +31,13 @@ interface RealTimeTrip {
   route_id: string;
   direction_id: number;
 }
+
 interface Vehicle {
   id: string;
   label: string;
   license_plate: string;
 }
+
 export interface TripUpdate {
   trip: RealTimeTrip;
   stop_time_update?: {
@@ -46,6 +51,7 @@ export interface TripUpdate {
   timestamp: number;
   delay: number;
 }
+
 export interface VehicleUpdate {
   trip: RealTimeTrip;
   position?: {
@@ -59,35 +65,42 @@ export interface VehicleUpdate {
   vehicle: Vehicle;
   timestamp: number;
 }
+
 export interface Entity {
   id: string;
   trip_update?: TripUpdate;
   vehicle?: VehicleUpdate;
   is_deleted: boolean;
 }
-interface ActivePeriod {
+
+export interface ActivePeriod {
   start?: number;
   end?: number;
 }
-interface TripDescriptor {
+
+export interface TripDescriptor {
   trip_id: string;
   start_time?: string;
   end_time?: string;
 }
-interface InformedEntityRoute {
+
+export interface InformedEntityRoute {
   agency_id?: string;
   route_id?: string;
   route_type?: number;
 }
-interface InformedEntityTrip {
+
+export interface InformedEntityTrip {
   agency_id?: string;
   trip?: TripDescriptor;
 }
-interface InformedEntityStop {
+
+export interface InformedEntityStop {
   agency_id?: string;
   stop_id?: string;
 }
-const enum Cause {
+
+export const enum Cause {
   UNKNOWN_CAUSE,
   OTHER_CAUSE,
   TECHNICAL_PROBLEM,
@@ -101,7 +114,8 @@ const enum Cause {
   POLICE_ACTIVITY,
   MEDICAL_EMERGENCY,
 }
-const enum Effect {
+
+export const enum Effect {
   NO_SERVICE,
   REDUCED_SERVICE,
   SIGNIFICANT_DELAYS,
@@ -112,18 +126,23 @@ const enum Effect {
   UNKNOWN_EFFECT,
   STOP_MOVED,
 }
-interface TranslatedString {
+
+export interface TranslatedString {
   text: string;
   language: string;
 }
+
 export interface Alert {
   active_period: ActivePeriod;
-  informed_entity: Array<InformedEntityRoute | InformedEntityTrip | InformedEntityStop>;
+  informed_entity: Array<
+    InformedEntityRoute | InformedEntityTrip | InformedEntityStop
+  >;
   cause: Cause;
   effect: Effect;
   url: string;
   translatedString: TranslatedString;
 }
+
 export interface GTFSRealtime {
   status: string;
   response: {
