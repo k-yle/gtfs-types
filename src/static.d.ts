@@ -20,16 +20,18 @@ export const enum ExceptionType {
 }
 
 export const enum TransferType {
-  RECCOMMENDED = 0,
+  RECOMMENDED = 0,
   TIMED_TRANSFER,
   TIME_REQUIRED,
   NO_TRANSFER_POSSIBLE,
+  IN_SEAT_TRANSFER,
+  RE_BOARD_TRANSFER,
 }
 
 export const enum LocationType {
   STOP = 0,
   STATION,
-  ENTRANCE_EXIST,
+  ENTRANCE_EXIT,
   GENERIC_NODE,
   BOARDING_AREA,
 }
@@ -45,6 +47,40 @@ export const enum PickupDropoffType {
   NON_CONTINUOUS,
   MUST_CONTACT_AGENCY,
   MUST_CONTACT_DRIVER,
+}
+
+export const enum PaymentMethod {
+  PAID_ON_BOARD,
+  PAID_BEFORE_BOARDING,
+}
+
+export const enum TransfersNumber {
+  NO_TRANSFERS_PERMITTED,
+  RIDERS_MAY_TRANSFER_ONCE,
+  RIDERS_MAY_TRANSFER_TWICE,
+  UNLIMITED_TRANSFERS_ARE_PERMITTED = "",
+}
+
+export const enum PathwayMode {
+  WALKWAY = 1,
+  STAIRS,
+  MOVING_SIDEWALK_TRAVELATOR,
+  ESCALATOR,
+  ELEVATOR,
+  FARE_PAYMENT_GATE,
+  EXIT_GATE,
+}
+
+export const enum TranslationsTableName {
+  AGENCY = "agency",
+  STOPS = "stops",
+  ROUTES = "routes",
+  TRIPS = "trips",
+  STOP_TIMES = "stop_times",
+  FEED_INFO = "feed_info",
+  PATHWAYS = "pathways",
+  LEVELS = "levels",
+  ATTRIBUTIONS = "attributions",
 }
 
 // files
@@ -139,6 +175,24 @@ export interface CalendarDates {
   exception_type: ExceptionType;
 }
 
+export interface FareAttributes {
+  fare_id: string;
+  price: number;
+  currency_type: string;
+  payment_method: PaymentMethod;
+  transfers: TransfersNumber;
+  agency_id?: string;
+  transfer_duration?: number;
+}
+
+export interface FareRules {
+  fare_id: string;
+  route_id?: string;
+  origin_id?: string;
+  destination_id?: string;
+  contains_id?: string;
+}
+
 export interface Shapes {
   shape_id: string;
   shape_pt_lat: number;
@@ -159,17 +213,62 @@ export interface Transfers {
   from_stop_id: string;
   to_stop_id: string;
   transfer_type: TransferType;
-  min_transfer_time: number;
+  min_transfer_time?: number;
+}
+
+export interface Pathways {
+  pathway_id: string;
+  from_stop_id: string;
+  to_stop_id: string;
+  pathway_mode: PathwayMode;
+  is_bidirectional: 0 | 1;
+  length?: number;
+  traversal_time?: number;
+  stair_count?: number;
+  max_slope?: number;
+  min_width?: number;
+  signposted_as?: string;
+  reversed_signposted_as?: string;
+}
+
+export interface Levels {
+  level_id: string;
+  level_index: number;
+  level_name?: string;
 }
 
 export interface FeedInfo {
   feed_publisher_name: string;
   feed_publisher_url: string;
   feed_lang: string;
-  default_lang: string;
-  feed_start_date: string;
-  feed_end_date: string;
-  feed_version: string;
-  feed_contact_email: string;
-  feed_contact_url: string;
+  default_lang?: string;
+  feed_start_date?: string;
+  feed_end_date?: string;
+  feed_version?: string;
+  feed_contact_email?: string;
+  feed_contact_url?: string;
+}
+
+export interface Translations {
+  table_name: TranslationsTableName;
+  field_name: string;
+  language: string;
+  translation: string;
+  record_id?: string;
+  record_sub_id?: string;
+  field_value?: string;
+}
+
+export interface Attributions {
+  attribution_id?: string;
+  agency_id?: string;
+  route_id?: string;
+  trip_id?: string;
+  organization_name: string;
+  is_producer?: 0 | 1 | "";
+  is_operator?: 0 | 1 | "";
+  is_authority?: 0 | 1 | "";
+  attribution_url?: string;
+  attribution_email?: string;
+  attribution_phone?: string;
 }
