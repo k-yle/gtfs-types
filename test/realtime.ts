@@ -1,4 +1,10 @@
-import { GTFSRealtime } from "..";
+import {
+  GTFSRealtime,
+  Incrementality,
+  OccupancyStatus,
+  ScheduleRelationship,
+  TripScheduleRelationship,
+} from "..";
 
 const APIResponse: GTFSRealtime = {
   status: "OK",
@@ -6,7 +12,7 @@ const APIResponse: GTFSRealtime = {
     header: {
       timestamp: 1598512657.187,
       gtfs_realtime_version: "1.0",
-      incrementality: 0,
+      incrementality: Incrementality.FULL_DATASET,
     },
     entity: [
       {
@@ -16,20 +22,22 @@ const APIResponse: GTFSRealtime = {
             trip_id: "472197624-20200821113649_v94.23",
             start_time: "17:20:00",
             start_date: "20200827",
-            schedule_relationship: 0,
+            schedule_relationship: TripScheduleRelationship.SCHEDULED,
             route_id: "02710-20200821113649_v94.23",
             direction_id: 1,
           },
-          stop_time_update: {
-            stop_sequence: 23,
-            arrival: {
-              delay: -1023,
-              time: 1598506677,
-              uncertainty: 0,
+          stop_time_update: [
+            {
+              stop_sequence: 23,
+              arrival: {
+                delay: -1023,
+                time: 1598506677,
+                uncertainty: 0,
+              },
+              stop_id: "8532-20200821113649_v94.23",
+              schedule_relationship: ScheduleRelationship.SCHEDULED,
             },
-            stop_id: "8532-20200821113649_v94.23",
-            schedule_relationship: 0,
-          },
+          ],
           vehicle: {
             id: "12426",
             label: "NB2426",
@@ -47,7 +55,7 @@ const APIResponse: GTFSRealtime = {
             trip_id: "1140215321-20200821113649_v94.23",
             start_time: "18:50:00",
             start_date: "20200827",
-            schedule_relationship: 0,
+            schedule_relationship: TripScheduleRelationship.ADDED,
             route_id: "03508-20200821113649_v94.23",
             direction_id: 1,
           },
@@ -64,7 +72,7 @@ const APIResponse: GTFSRealtime = {
             label: "HE0303",
             license_plate: "CYW102",
           },
-          occupancy_status: 0,
+          occupancy_status: OccupancyStatus.FULL,
         },
         is_deleted: false,
       },
