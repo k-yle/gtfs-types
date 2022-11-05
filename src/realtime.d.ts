@@ -1,4 +1,4 @@
-export const enum Occupancy {
+export const enum OccupancyStatus {
   EMPTY,
   MANY_SEATS_AVAILABLE,
   FEW_SEATS_AVAILABLE,
@@ -6,10 +6,12 @@ export const enum Occupancy {
   CRUSHED_STANDING_ROOM_ONLY,
   FULL,
   NOT_ACCEPTING_PASSENGERS,
+  NO_DATA_AVAILABLE,
+  NOT_BOARDABLE,
   UNKNOWN = -1,
 }
 
-export const enum Congestion {
+export const enum CongestionLevel {
   UNKNOWN_CONGESTION_LEVEL,
   RUNNING_SMOOTHLY,
   STOP_AND_GO,
@@ -17,87 +19,71 @@ export const enum Congestion {
   SEVERE_CONGESTION,
 }
 
-declare interface Time {
-  delay: number;
-  time: number;
-  uncertainty: number;
-}
-
-interface RealTimeTrip {
-  trip_id: string;
-  start_time: string;
-  start_date: string;
-  schedule_relationship: number;
-  route_id: string;
-  direction_id: number;
-}
-
-interface Vehicle {
-  id: string;
-  label: string;
-  license_plate: string;
-}
-
-export interface TripUpdate {
-  trip: RealTimeTrip;
-  stop_time_update?: {
-    stop_sequence: number;
-    arrival?: Time;
-    departure?: Time;
-    stop_id: string;
-    schedule_relationship: number;
-  };
-  vehicle: Vehicle;
-  timestamp: number;
-  delay: number;
-}
-
-export interface VehicleUpdate {
-  trip: RealTimeTrip;
-  position?: {
-    latitude: number;
-    longitude: number;
-    bearing: string;
-    odometer: number;
-    speed: number;
-  };
-  occupancy_status?: Occupancy;
-  vehicle: Vehicle;
-  timestamp: number;
-}
-
-export interface Entity {
-  id: string;
-  trip_update?: TripUpdate;
-  vehicle?: VehicleUpdate;
-  is_deleted: boolean;
-}
-
-export interface ActivePeriod {
-  start?: number;
-  end?: number;
+export interface StopTimeEvent {
+  delay?: number;
+  time?: number;
+  uncertainty?: number;
 }
 
 export interface TripDescriptor {
-  trip_id: string;
+  trip_id?: string;
   start_time?: string;
-  end_time?: string;
-}
-
-export interface InformedEntityRoute {
-  agency_id?: string;
+  start_date?: string;
+  schedule_relationship?: TripScheduleRelationship;
   route_id?: string;
-  route_type?: number;
+  direction_id?: number;
 }
 
-export interface InformedEntityTrip {
-  agency_id?: string;
+export enum TripScheduleRelationship {
+  SCHEDULED,
+  ADDED,
+  UNSCHEDULED,
+  CANCELED,
+}
+
+export enum StopTimeUpdateScheduleRelationship {
+  SCHEDULED,
+  SKIPPED,
+  NO_DATA,
+}
+
+export interface VehicleDescriptor {
+  id?: string;
+  label?: string;
+  license_plate?: string;
+}
+
+export interface TripUpdate {
+  trip: TripDescriptor;
+  stop_time_update?: StopTimeUpdate[];
+  vehicle?: VehicleDescriptor;
+  timestamp?: number;
+  delay?: number;
+}
+
+export interface VehiclePosition {
   trip?: TripDescriptor;
+  position?: Position;
+  current_stop_sequence?: number;
+  stop_id?: string;
+  current_status?: VehicleStopStatus;
+  congestion_level?: CongestionLevel;
+  occupancy_status?: OccupancyStatus;
+  vehicle?: VehicleDescriptor;
+  timestamp?: number;
 }
 
-export interface InformedEntityStop {
-  agency_id?: string;
-  stop_id?: string;
+export interface FeedEntity {
+  id: string;
+  trip_update?: TripUpdate;
+  vehicle?: VehiclePosition;
+  is_deleted?: boolean;
+  alert?: Alert;
+}
+
+export interface TimeRange {
+  start?: number;
+  end?: number;
 }
 
 export const enum Cause {
@@ -128,29 +114,72 @@ export const enum Effect {
 }
 
 export interface TranslatedString {
+  translation: Translation[];
+}
+
+export interface Translation {
   text: string;
-  language: string;
+  language?: string;
 }
 
 export interface Alert {
-  active_period: ActivePeriod;
-  informed_entity: Array<
-    InformedEntityRoute | InformedEntityTrip | InformedEntityStop
-  >;
-  cause: Cause;
-  effect: Effect;
-  url: string;
-  translatedString: TranslatedString;
+  active_period?: TimeRange;
+  informed_entity: EntitySelector[];
+  cause?: Cause;
+  effect?: Effect;
+  url?: TranslatedString;
+  header_text: TranslatedString;
+  description_text: TranslatedString;
+}
+
+export interface Position {
+  latitude: number;
+  longitude: number;
+  bearing?: string;
+  odometer?: number;
+  speed?: number;
+}
+
+export interface StopTimeUpdate {
+  stop_sequence?: number;
+  stop_id?: string;
+  arrival?: StopTimeEvent;
+  departure?: StopTimeEvent;
+  schedule_relationship: StopTimeUpdateScheduleRelationship;
+}
+
+export interface EntitySelector {
+  agency_id?: string;
+  route_id?: string;
+  route_type?: number;
+  direction_id?: number;
+  trip?: TripDescriptor;
+  stop_id?: string;
+}
+
+export const enum VehicleStopStatus {
+  INCOMING_AT,
+  STOPPED_AT,
+  IN_TRANSIT_TO,
+}
+
+export const enum Incrementality {
+  FULL_DATASET,
+  DIFFERENTIAL,
+}
+
+export interface FeedHeader {
+  gtfs_realtime_version: string;
+  incrementality: Incrementality;
+  timestamp: number;
+}
+
+export interface FeedMessage {
+  header: FeedHeader;
+  entity?: FeedEntity[];
 }
 
 export interface GTFSRealtime {
   status: string;
-  response: {
-    header: {
-      timestamp: number;
-      gtfs_realtime_version: string;
-      incrementality: number;
-    };
-    entity: Entity[];
-  };
+  response: FeedMessage;
 }

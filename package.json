@@ -1,6 +1,6 @@
 {
   "name": "gtfs-types",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": "Kyle Hensel",
   "description": "🚂 Typescript definitions for the GTFS Standard",
   "license": "MIT",
@@ -34,8 +34,8 @@
     }
   },
   "devDependencies": {
-    "eslint": "^7.31.0",
-    "eslint-config-kyle": "^2.53.0",
-    "typescript": "^4.3.5"
+    "eslint": "^8.26.0",
+    "eslint-config-kyle": "^9.11.1",
+    "typescript": "^4.8.4"
   }
 }
