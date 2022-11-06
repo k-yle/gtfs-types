@@ -1,32 +1,75 @@
+export const enum OccupancyStatus {
+  EMPTY = "EMPTY",
+  MANY_SEATS_AVAILABLE = "MANY_SEATS_AVAILABLE",
+  FEW_SEATS_AVAILABLE = "FEW_SEATS_AVAILABLE",
+  STANDING_ROOM_ONLY = "STANDING_ROOM_ONLY",
+  CRUSHED_STANDING_ROOM_ONLY = "CRUSHED_STANDING_ROOM_ONLY",
+  FULL = "FULL",
+  NOT_ACCEPTING_PASSENGERS = "NOT_ACCEPTING_PASSENGERS",
+  NO_DATA_AVAILABLE = "NO_DATA_AVAILABLE",
+  NOT_BOARDABLE = "NOT_BOARDABLE",
+}
+
+export const enum CongestionLevel {
+  UNKNOWN_CONGESTION_LEVEL = "UNKNOWN_CONGESTION_LEVEL",
+  RUNNING_SMOOTHLY = "RUNNING_SMOOTHLY",
+  STOP_AND_GO = "STOP_AND_GO",
+  CONGESTION = "CONGESTION",
+  SEVERE_CONGESTION = "SEVERE_CONGESTION",
+}
+
+export interface StopTimeEvent {
+  delay?: number;
+  time?: number;
+  uncertainty?: number;
+}
+
+export interface TripDescriptor {
+  trip_id?: string;
+  start_time?: string;
+  start_date?: string;
+  schedule_relationship?: TripScheduleRelationship;
+  route_id?: string;
+  direction_id?: number;
+}
+
 export interface VehicleDescriptor {
   id?: string;
   label?: string;
   license_plate?: string;
 }
 
-export const enum TripScheduleRelationship {
-  SCHEDULED = "SCHEDULED",
-  ADDED = "ADDED",
-  UNSCHEDULED = "UNSCHEDULED",
-  CANCELED = "CANCELED",
+export interface TripUpdate {
+  trip: TripDescriptor;
+  stop_time_update?: StopTimeUpdate[];
+  vehicle?: VehicleDescriptor;
+  timestamp?: number;
+  delay?: number;
 }
 
-export interface TripDescriptor {
-  trip_id?: string;
-  route_id?: string;
-  direction_id?: number;
-  start_time?: string;
-  start_date?: string;
-  schedule_relationship?: TripScheduleRelationship;
-}
-
-export interface EntitySelector {
-  agency_id?: string;
-  route_id?: string;
-  route_type?: number;
-  direction_id?: number;
+export interface VehiclePosition {
   trip?: TripDescriptor;
+  position?: Position;
+  current_stop_sequence?: number;
   stop_id?: string;
+  current_status?: VehicleStopStatus;
+  congestion_level?: CongestionLevel;
+  occupancy_status?: OccupancyStatus;
+  vehicle?: VehicleDescriptor;
+  timestamp?: number;
+}
+
+export interface FeedEntity {
+  id: string;
+  trip_update?: TripUpdate;
+  vehicle?: VehiclePosition;
+  is_deleted?: boolean;
+  alert?: Alert;
+}
+
+export interface TimeRange {
+  start?: number;
+  end?: number;
 }
 
 export const enum Cause {
@@ -56,6 +99,15 @@ export const enum Effect {
   STOP_MOVED = "STOP_MOVED",
 }
 
+export interface TranslatedString {
+  translation: Translation[];
+}
+
+export interface Translation {
+  text: string;
+  language?: string;
+}
+
 export interface Alert {
   active_period?: TimeRange[];
   informed_entity: EntitySelector[];
@@ -66,76 +118,12 @@ export interface Alert {
   description_text: TranslatedString;
 }
 
-export interface TimeRange {
-  start?: number;
-  end?: number;
-}
-
-export interface Translation {
-  text: string;
-  language?: string;
-}
-
-export interface TranslatedString {
-  translation: Translation[];
-}
-
 export interface Position {
   latitude: number;
   longitude: number;
   bearing?: string;
   odometer?: number;
   speed?: number;
-}
-
-export const enum OccupancyStatus {
-  EMPTY = "EMPTY",
-  MANY_SEATS_AVAILABLE = "MANY_SEATS_AVAILABLE",
-  FEW_SEATS_AVAILABLE = "FEW_SEATS_AVAILABLE",
-  STANDING_ROOM_ONLY = "STANDING_ROOM_ONLY",
-  CRUSHED_STANDING_ROOM_ONLY = "CRUSHED_STANDING_ROOM_ONLY",
-  FULL = "FULL",
-  NOT_ACCEPTING_PASSENGERS = "NOT_ACCEPTING_PASSENGERS",
-  NO_DATA_AVAILABLE = "NO_DATA_AVAILABLE",
-  NOT_BOARDABLE = "NOT_BOARDABLE",
-}
-
-export const enum CongestionLevel {
-  UNKNOWN_CONGESTION_LEVEL = "UNKNOWN_CONGESTION_LEVEL",
-  RUNNING_SMOOTHLY = "RUNNING_SMOOTHLY",
-  STOP_AND_GO = "STOP_AND_GO",
-  CONGESTION = "CONGESTION",
-  SEVERE_CONGESTION = "SEVERE_CONGESTION",
-}
-
-export const enum VehicleStopStatus {
-  INCOMING_AT = "INCOMING_AT",
-  STOPPED_AT = "STOPPED_AT",
-  IN_TRANSIT_TO = "IN_TRANSIT_TO",
-}
-
-export interface VehiclePosition {
-  trip?: TripDescriptor;
-  vehicle?: VehicleDescriptor;
-  position?: Position;
-  current_stop_sequence?: number;
-  stop_id?: string;
-  current_status?: VehicleStopStatus;
-  timestamp?: number;
-  congestion_level?: CongestionLevel;
-  occupancy_status?: OccupancyStatus;
-}
-
-export interface StopTimeEvent {
-  delay?: number;
-  time?: number;
-  uncertainty?: number;
-}
-
-export const enum ScheduleRelationship {
-  SCHEDULED = "SCHEDULED",
-  SKIPPED = "SKIPPED",
-  NO_DATA = "NO_DATA",
 }
 
 export interface StopTimeUpdate {
@@ -146,20 +134,32 @@ export interface StopTimeUpdate {
   schedule_relationship: ScheduleRelationship;
 }
 
-export interface TripUpdate {
-  trip: TripDescriptor;
-  vehicle?: VehicleDescriptor;
-  stop_time_update?: StopTimeUpdate[];
-  timestamp?: number;
-  delay?: number;
+export interface EntitySelector {
+  agency_id?: string;
+  route_id?: string;
+  route_type?: number;
+  direction_id?: number;
+  trip?: TripDescriptor;
+  stop_id?: string;
 }
 
-export interface FeedEntity {
-  id: string;
-  is_deleted?: boolean;
-  trip_update?: TripUpdate;
-  vehicle?: VehiclePosition;
-  alert?: Alert;
+export const enum TripScheduleRelationship {
+  SCHEDULED = "SCHEDULED",
+  ADDED = "ADDED",
+  UNSCHEDULED = "UNSCHEDULED",
+  CANCELED = "CANCELED",
+}
+
+export const enum VehicleStopStatus {
+  INCOMING_AT = "INCOMING_AT",
+  STOPPED_AT = "STOPPED_AT",
+  IN_TRANSIT_TO = "IN_TRANSIT_TO",
+}
+
+export const enum ScheduleRelationship {
+  SCHEDULED = "SCHEDULED",
+  SKIPPED = "SKIPPED",
+  NO_DATA = "NO_DATA",
 }
 
 export const enum Incrementality {
