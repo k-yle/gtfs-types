@@ -34,14 +34,14 @@ interface RealTimeTrip {
   direction_id: number;
 }
 
-export enum TripScheduleRelationship {
+export const enum TripScheduleRelationship {
   SCHEDULED,
   ADDED,
   UNSCHEDULED,
   CANCELED,
 }
 
-export enum StopTimeUpdateScheduleRelationship {
+export const enum StopTimeUpdateScheduleRelationship {
   SCHEDULED,
   SKIPPED,
   NO_DATA,
