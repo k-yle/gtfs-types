@@ -6,7 +6,7 @@ export const enum VehicleType {
   BUS,
   FERRY,
   CABLE_CAR,
-  GONDOLA_LIFT,
+  GONDOLA,
   FUNICULAR,
 
   TROLLEY_BUS = 11,

@@ -20,7 +20,9 @@ export const enum ExceptionType {
 }
 
 export const enum TransferType {
-  RECOMMENDED = 0,
+  RECOMMENDED,
+  /** @deprecated typo, use {@link RECOMMENDED} */
+  RECCOMMENDED = 0,
   TIMED_TRANSFER,
   TIME_REQUIRED,
   NO_TRANSFER_POSSIBLE,
@@ -32,6 +34,8 @@ export const enum LocationType {
   STOP = 0,
   STATION,
   ENTRANCE_EXIT,
+  /** @deprecated typo, use {@link ENTRANCE_EXIT} */
+  ENTRANCE_EXIST = 2,
   GENERIC_NODE,
   BOARDING_AREA,
 }
@@ -213,7 +217,7 @@ export interface Transfers {
   from_stop_id: string;
   to_stop_id: string;
   transfer_type: TransferType;
-  min_transfer_time?: number;
+  min_transfer_time: number;
 }
 
 export interface Pathways {
@@ -241,12 +245,12 @@ export interface FeedInfo {
   feed_publisher_name: string;
   feed_publisher_url: string;
   feed_lang: string;
-  default_lang?: string;
-  feed_start_date?: string;
-  feed_end_date?: string;
-  feed_version?: string;
-  feed_contact_email?: string;
-  feed_contact_url?: string;
+  default_lang: string;
+  feed_start_date: string;
+  feed_end_date: string;
+  feed_version: string;
+  feed_contact_email: string;
+  feed_contact_url: string;
 }
 
 export interface Translations {
