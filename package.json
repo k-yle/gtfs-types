@@ -1,14 +1,14 @@
 {
   "name": "gtfs-types",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "author": "Kyle Hensel",
   "description": "🚂 Typescript definitions for the GTFS Standard",
   "license": "MIT",
-  "main": "",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --ext .ts .",
-    "test": "tsc",
+    "build": "tsc && rm -rf dist/test",
     "trypublish": "npm publish || true"
   },
   "keywords": [
@@ -17,8 +17,7 @@
     "typescript"
   ],
   "files": [
-    "src",
-    "index.d.ts"
+    "dist"
   ],
   "homepage": "https://github.com/k-yle/gtfs-types",
   "repository": "https://github.com/k-yle/gtfs-types",
@@ -28,7 +27,6 @@
   "eslintConfig": {
     "extends": "kyle",
     "rules": {
-      "@typescript-eslint/ban-ts-comment": 0,
       "@typescript-eslint/no-unused-vars": 0,
       "camelcase": 0
     }

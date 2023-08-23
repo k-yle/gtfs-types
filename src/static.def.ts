@@ -1,25 +1,25 @@
-import { VehicleType } from "./vehicle-types";
+import { VehicleType } from "./vehicle-types.def";
 
 // enums
 
-export const enum GTFSBool {
+export enum GTFSBool {
   NOT_SPECIFIED,
   YES,
   NO,
 }
-export const enum Alight {
+export enum Alight {
   AVAILABLE = 0,
   NOT_AVAILABLE,
   MUST_CONTACT_AGENCY,
   MUST_CONTACT_DRIVER,
 }
 
-export const enum ExceptionType {
+export enum ExceptionType {
   SERVICE_ADDED = 1,
   SERVICE_REMOVED,
 }
 
-export const enum TransferType {
+export enum TransferType {
   RECOMMENDED,
   /** @deprecated typo, use {@link RECOMMENDED} */
   RECCOMMENDED = 0,
@@ -30,7 +30,7 @@ export const enum TransferType {
   RE_BOARD_TRANSFER,
 }
 
-export const enum LocationType {
+export enum LocationType {
   STOP = 0,
   STATION,
   ENTRANCE_EXIT,
@@ -40,32 +40,32 @@ export const enum LocationType {
   BOARDING_AREA,
 }
 
-export const enum WheelchairBoardingType {
+export enum WheelchairBoardingType {
   UNKNOWN_OR_INHERIT = 0,
   ACCESSIBLE,
   NOT_ACCESSIBLE,
 }
 
-export const enum PickupDropoffType {
+export enum PickupDropoffType {
   CONTINUOUS = 0,
   NON_CONTINUOUS,
   MUST_CONTACT_AGENCY,
   MUST_CONTACT_DRIVER,
 }
 
-export const enum PaymentMethod {
+export enum PaymentMethod {
   PAID_ON_BOARD,
   PAID_BEFORE_BOARDING,
 }
 
-export const enum TransfersNumber {
+export enum TransfersNumber {
   NO_TRANSFERS_PERMITTED,
   RIDERS_MAY_TRANSFER_ONCE,
   RIDERS_MAY_TRANSFER_TWICE,
   UNLIMITED_TRANSFERS_ARE_PERMITTED = "",
 }
 
-export const enum PathwayMode {
+export enum PathwayMode {
   WALKWAY = 1,
   STAIRS,
   MOVING_SIDEWALK_TRAVELATOR,
@@ -75,7 +75,7 @@ export const enum PathwayMode {
   EXIT_GATE,
 }
 
-export const enum TranslationsTableName {
+export enum TranslationsTableName {
   AGENCY = "agency",
   STOPS = "stops",
   ROUTES = "routes",

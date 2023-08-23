@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 3.0.0 (2023-08-23)
+
+- chore: replace [problematic](https://www.typescriptlang.org/docs/handbook/enums.html#const-enum-pitfalls) `const enum`s with normal `enums`, to support [`isolatedModules`](https://typescriptlang.org/tsconfig#isolatedModules) mode
+
 ## 2.3.0 (2023-08-23)
 
 - feat: add GTFS v3 types

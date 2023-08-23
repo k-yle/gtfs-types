@@ -1,4 +1,4 @@
-export const enum Occupancy {
+export enum Occupancy {
   EMPTY,
   MANY_SEATS_AVAILABLE,
   FEW_SEATS_AVAILABLE,
@@ -11,7 +11,7 @@ export const enum Occupancy {
   UNKNOWN = -1,
 }
 
-export const enum Congestion {
+export enum Congestion {
   UNKNOWN_CONGESTION_LEVEL,
   RUNNING_SMOOTHLY,
   STOP_AND_GO,
@@ -34,14 +34,14 @@ interface RealTimeTrip {
   direction_id: number;
 }
 
-export const enum TripScheduleRelationship {
+export enum TripScheduleRelationship {
   SCHEDULED,
   ADDED,
   UNSCHEDULED,
   CANCELED,
 }
 
-export const enum StopTimeUpdateScheduleRelationship {
+export enum StopTimeUpdateScheduleRelationship {
   SCHEDULED,
   SKIPPED,
   NO_DATA,
@@ -86,7 +86,7 @@ export interface TimeRange {
   end?: number;
 }
 
-export const enum Cause {
+export enum Cause {
   UNKNOWN_CAUSE,
   OTHER_CAUSE,
   TECHNICAL_PROBLEM,
@@ -101,7 +101,7 @@ export const enum Cause {
   MEDICAL_EMERGENCY,
 }
 
-export const enum Effect {
+export enum Effect {
   NO_SERVICE,
   REDUCED_SERVICE,
   SIGNIFICANT_DELAYS,
@@ -157,13 +157,13 @@ export interface EntitySelector {
   stop_id?: string;
 }
 
-export const enum VehicleStopStatus {
+export enum VehicleStopStatus {
   INCOMING_AT,
   STOPPED_AT,
   IN_TRANSIT_TO,
 }
 
-export const enum Incrementality {
+export enum Incrementality {
   FULL_DATASET,
   DIFFERENTIAL,
 }
