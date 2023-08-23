@@ -1,4 +1,4 @@
-export const enum VehicleType {
+export enum VehicleType {
   // Standard route types
   LIGHT_RAIL,
   METRO,

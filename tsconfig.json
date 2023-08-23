@@ -2,7 +2,9 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true
+    "declaration": true,
+    "isolatedModules": true,
+    "outDir": "dist",
   },
   "include": ["src", "test"]
 }
