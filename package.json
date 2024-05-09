@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --ext .ts .",
     "build": "tsc && rm -rf dist/test",
-    "trypublish": "npm publish || true"
+    "trypublish": "npm publish --provenance || true"
   },
   "keywords": [
     "gtfs",
