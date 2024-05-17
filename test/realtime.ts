@@ -20,16 +20,18 @@ const APIResponse: GTFSRealtime = {
             route_id: "02710-20200821113649_v94.23",
             direction_id: 1,
           },
-          stop_time_update: [{
-            stop_sequence: 23,
-            arrival: {
-              delay: -1023,
-              time: 1598506677,
-              uncertainty: 0,
+          stop_time_update: [
+            {
+              stop_sequence: 23,
+              arrival: {
+                delay: -1023,
+                time: 1598506677,
+                uncertainty: 0,
+              },
+              stop_id: "8532-20200821113649_v94.23",
+              schedule_relationship: 0,
             },
-            stop_id: "8532-20200821113649_v94.23",
-            schedule_relationship: 0,
-          }],
+          ],
           vehicle: {
             id: "12426",
             label: "NB2426",
