@@ -55,7 +55,7 @@ export interface Vehicle {
 
 export interface TripUpdate {
   trip: RealTimeTrip;
-  stop_time_update?: StopTimeUpdate;
+  stop_time_update?: StopTimeUpdate[];
   vehicle?: Vehicle;
   timestamp?: number;
   delay?: number;
