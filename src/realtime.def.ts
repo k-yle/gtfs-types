@@ -135,7 +135,7 @@ export interface Alert {
 export interface Position {
   latitude: number;
   longitude: number;
-  bearing?: string;
+  bearing?: number;
   odometer?: number;
   speed?: number;
 }
