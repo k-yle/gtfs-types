@@ -20,18 +20,18 @@ export enum Congestion {
 }
 
 declare interface Time {
-  delay: number;
-  time: number;
-  uncertainty: number;
+  delay?: number;
+  time?: number;
+  uncertainty?: number;
 }
 
 interface RealTimeTrip {
-  trip_id: string;
-  start_time: string;
-  start_date: string;
-  schedule_relationship: TripScheduleRelationship;
-  route_id: string;
-  direction_id: number;
+  trip_id?: string;
+  start_time?: string;
+  start_date?: string;
+  schedule_relationship?: TripScheduleRelationship;
+  route_id?: string;
+  direction_id?: number;
 }
 
 export enum TripScheduleRelationship {
@@ -48,9 +48,9 @@ export enum StopTimeUpdateScheduleRelationship {
 }
 
 export interface Vehicle {
-  id: string;
-  label: string;
-  license_plate: string;
+  id?: string;
+  label?: string;
+  license_plate?: string;
 }
 
 export interface TripUpdate {
@@ -141,11 +141,11 @@ export interface Position {
 }
 
 export interface StopTimeUpdate {
-  stop_sequence: number;
-  stop_id: string;
+  stop_sequence?: number;
+  stop_id?: string;
   arrival?: Time;
   departure?: Time;
-  schedule_relationship: StopTimeUpdateScheduleRelationship;
+  schedule_relationship?: StopTimeUpdateScheduleRelationship;
 }
 
 export interface EntitySelector {
