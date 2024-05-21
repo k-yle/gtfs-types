@@ -56,7 +56,7 @@ const APIResponse: GTFSRealtime = {
           position: {
             latitude: -36.99360166666666,
             longitude: 174.87862,
-            bearing: "128",
+            bearing: 128.1,
             odometer: 974250608,
             speed: 0,
           },
