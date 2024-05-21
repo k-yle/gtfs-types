@@ -111,6 +111,8 @@ export enum Effect {
   OTHER_EFFECT,
   UNKNOWN_EFFECT,
   STOP_MOVED,
+  NO_EFFECT,
+  ACCESSIBILITY_ISSUE,
 }
 
 export enum SeverityLevel {
