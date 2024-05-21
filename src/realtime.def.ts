@@ -111,6 +111,15 @@ export enum Effect {
   OTHER_EFFECT,
   UNKNOWN_EFFECT,
   STOP_MOVED,
+  NO_EFFECT,
+  ACCESSIBILITY_ISSUE,
+}
+
+export enum SeverityLevel {
+  UNKNOWN_SEVERITY,
+  INFO,
+  WARNING,
+  SEVERE,
 }
 
 export interface TranslatedString {
@@ -123,13 +132,16 @@ export interface Translation {
 }
 
 export interface Alert {
-  active_period: TimeRange;
+  active_period?: TimeRange[];
   informed_entity: EntitySelector[];
-  cause: Cause;
-  effect: Effect;
-  url: TranslatedString;
+  cause?: Cause;
+  effect?: Effect;
+  url?: TranslatedString;
   header_text: TranslatedString;
   description_text: TranslatedString;
+  tts_header_text?: TranslatedString;
+  tts_description_text?: TranslatedString;
+  severity_level?: SeverityLevel;
 }
 
 export interface Position {
