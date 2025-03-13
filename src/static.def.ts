@@ -47,8 +47,6 @@ export enum ExceptionType {
 
 export enum TransferType {
   RECOMMENDED,
-  /** @deprecated typo, use {@link RECOMMENDED} */
-  RECCOMMENDED = 0,
   TIMED_TRANSFER,
   TIME_REQUIRED,
   NO_TRANSFER_POSSIBLE,
@@ -60,8 +58,6 @@ export enum LocationType {
   STOP = 0,
   STATION,
   ENTRANCE_EXIT,
-  /** @deprecated typo, use {@link ENTRANCE_EXIT} */
-  ENTRANCE_EXIST = 2,
   GENERIC_NODE,
   BOARDING_AREA,
 }
