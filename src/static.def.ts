@@ -1,6 +1,23 @@
 import { VehicleType } from "./vehicle-types.def";
 
-// enums
+// MARK: ids
+
+// currently we don't use nominal types in this repository,
+// so these types are just aliases for readability.
+export type AgencyId = string;
+export type AttributionId = string;
+export type BlockId = string;
+export type FareId = string;
+export type LevelId = string;
+export type PathwayId = string;
+export type RouteId = string;
+export type ServiceId = string;
+export type ShapeId = string;
+export type StopId = string;
+export type TripId = string;
+export type ZoneId = string;
+
+// MARK: enums
 
 export enum GTFSBool {
   NOT_SPECIFIED,
@@ -87,10 +104,10 @@ export enum TranslationsTableName {
   ATTRIBUTIONS = "attributions",
 }
 
-// files
+// MARK: files
 
 export interface Agency {
-  agency_id?: string;
+  agency_id?: AgencyId;
   agency_name: string;
   agency_url: string;
   agency_timezone: string;
@@ -101,25 +118,25 @@ export interface Agency {
 }
 
 export interface Stop {
-  stop_id: string;
+  stop_id: StopId;
   stop_code?: string;
   stop_name?: string;
   stop_desc?: string;
   stop_lat?: number;
   stop_lon?: number;
-  zone_id?: string;
+  zone_id?: ZoneId;
   stop_url?: string;
   location_type?: LocationType;
   parent_station?: string;
   stop_timezone?: string;
   wheelchair_boarding?: WheelchairBoardingType | "";
-  level_id?: string;
+  level_id?: LevelId;
   platform_code?: string;
 }
 
 export interface Route {
-  route_id: string;
-  agency_id?: string;
+  route_id: RouteId;
+  agency_id?: AgencyId;
   route_short_name?: string;
   route_long_name?: string;
   route_desc?: string;
@@ -133,23 +150,23 @@ export interface Route {
 }
 
 export interface Trip {
-  route_id: string;
-  service_id: string;
-  trip_id: string;
+  route_id: RouteId;
+  service_id: ServiceId;
+  trip_id: TripId;
   trip_headsign?: string;
   trip_short_name?: string;
   direction_id?: 0 | 1;
-  block_id?: string;
-  shape_id?: string;
+  block_id?: BlockId;
+  shape_id?: ShapeId;
   wheelchair_accessible?: GTFSBool;
   bikes_allowed?: GTFSBool;
 }
 
 export interface StopTime {
-  trip_id: string;
+  trip_id: TripId;
   arrival_time?: string;
   departure_time?: string;
-  stop_id: string;
+  stop_id: StopId;
   stop_sequence: number;
   stop_headsign?: string;
   pickup_type?: Alight;
@@ -161,7 +178,7 @@ export interface StopTime {
 }
 
 export interface Calendar {
-  service_id: string;
+  service_id: ServiceId;
   monday: 1 | 0;
   tuesday: 1 | 0;
   wednesday: 1 | 0;
@@ -174,31 +191,31 @@ export interface Calendar {
 }
 
 export interface CalendarDates {
-  service_id: string;
+  service_id: ServiceId;
   date: string;
   exception_type: ExceptionType;
 }
 
 export interface FareAttributes {
-  fare_id: string;
+  fare_id: FareId;
   price: number;
   currency_type: string;
   payment_method: PaymentMethod;
   transfers: TransfersNumber;
-  agency_id?: string;
+  agency_id?: AgencyId;
   transfer_duration?: number;
 }
 
 export interface FareRules {
-  fare_id: string;
-  route_id?: string;
-  origin_id?: string;
-  destination_id?: string;
-  contains_id?: string;
+  fare_id: FareId;
+  route_id?: RouteId;
+  origin_id?: ZoneId;
+  destination_id?: ZoneId;
+  contains_id?: ZoneId;
 }
 
 export interface Shapes {
-  shape_id: string;
+  shape_id: ShapeId;
   shape_pt_lat: number;
   shape_pt_lon: number;
   shape_pt_sequence: number;
@@ -206,7 +223,7 @@ export interface Shapes {
 }
 
 export interface Frequencies {
-  trip_id: string;
+  trip_id: TripId;
   start_time: string;
   end_time: string;
   headway_secs: number;
@@ -214,16 +231,16 @@ export interface Frequencies {
 }
 
 export interface Transfers {
-  from_stop_id: string;
-  to_stop_id: string;
+  from_stop_id: StopId;
+  to_stop_id: StopId;
   transfer_type: TransferType;
   min_transfer_time: number;
 }
 
 export interface Pathways {
-  pathway_id: string;
-  from_stop_id: string;
-  to_stop_id: string;
+  pathway_id: PathwayId;
+  from_stop_id: StopId;
+  to_stop_id: StopId;
   pathway_mode: PathwayMode;
   is_bidirectional: 0 | 1;
   length?: number;
@@ -236,7 +253,7 @@ export interface Pathways {
 }
 
 export interface Levels {
-  level_id: string;
+  level_id: LevelId;
   level_index: number;
   level_name?: string;
 }
@@ -258,16 +275,23 @@ export interface Translations {
   field_name: string;
   language: string;
   translation: string;
-  record_id?: string;
+  record_id?:
+    | AgencyId
+    | StopId
+    | RouteId
+    | TripId
+    | PathwayId
+    | LevelId
+    | AttributionId;
   record_sub_id?: string;
   field_value?: string;
 }
 
 export interface Attributions {
-  attribution_id?: string;
-  agency_id?: string;
-  route_id?: string;
-  trip_id?: string;
+  attribution_id?: AttributionId;
+  agency_id?: AgencyId;
+  route_id?: RouteId;
+  trip_id?: TripId;
   organization_name: string;
   is_producer?: 0 | 1 | "";
   is_operator?: 0 | 1 | "";
