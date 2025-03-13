@@ -5,15 +5,24 @@ import { VehicleType } from "./vehicle-types.def";
 // currently we don't use nominal types in this repository,
 // so these types are just aliases for readability.
 export type AgencyId = string;
+export type AreaId = string;
 export type AttributionId = string;
 export type BlockId = string;
+export type BookingRuleId = string;
 export type FareId = string;
+export type FareMediaId = string;
+export type FareProductId = string;
+export type LegGroupId = string;
 export type LevelId = string;
+export type LocationGroupId = string;
+export type NetworkId = string;
 export type PathwayId = string;
+export type RiderCategoryId = string;
 export type RouteId = string;
 export type ServiceId = string;
 export type ShapeId = string;
 export type StopId = string;
+export type TimeframeGroupId = string;
 export type TripId = string;
 export type ZoneId = string;
 
@@ -102,6 +111,33 @@ export enum TranslationsTableName {
   PATHWAYS = "pathways",
   LEVELS = "levels",
   ATTRIBUTIONS = "attributions",
+}
+
+export enum FareMediaType {
+  NONE,
+  PHYSICAL_TICKET,
+  PHYSICAL_CARD,
+  CONTACTLESS_EMV,
+  MOBILE_APP,
+}
+
+export enum BookingType {
+  REAL_TIME,
+  SAME_DAY,
+  PRIOR_DAY,
+}
+
+export enum DurationLimit {
+  DEPARTURE_TO_ARRIVAL,
+  DEPARTURE_TO_DEPARTURE,
+  ARRIVAL_TO_DEPARTURE,
+  ARRIVAL_TO_ARRIVAL,
+}
+
+export enum FareTransferType {
+  LEG_TRANSFER,
+  LEG_TRANSFER_LEG,
+  TRANSFER,
 }
 
 // MARK: files
@@ -233,6 +269,10 @@ export interface Frequencies {
 export interface Transfers {
   from_stop_id: StopId;
   to_stop_id: StopId;
+  from_route_id?: RouteId;
+  to_route_id?: RouteId;
+  from_trip_id?: TripId;
+  to_trip_id?: TripId;
   transfer_type: TransferType;
   min_transfer_time: number;
 }
@@ -299,4 +339,109 @@ export interface Attributions {
   attribution_url?: string;
   attribution_email?: string;
   attribution_phone?: string;
+}
+
+export interface Timeframe {
+  timeframe_group_id: TimeframeGroupId;
+  start_time?: string;
+  end_time?: string;
+  service_id: ServiceId;
+}
+
+export interface RiderCategory {
+  rider_category_id: RiderCategoryId;
+  rider_category_name: string;
+  is_default_fare_category: 0 | 1;
+  eligibility_url: string;
+}
+
+export interface FareMedia {
+  fare_media_id: FareMediaId;
+  fare_media_name?: string;
+  fare_media_type: FareMediaType;
+}
+
+export interface FareProduct {
+  fare_product_id: FareProductId;
+  fare_product_name?: string;
+  rider_category_id?: RiderCategoryId;
+  fare_media_id?: FareMediaId;
+  ammount: number;
+  currency: string;
+}
+
+export interface FareLegRule {
+  leg_group_id?: LegGroupId;
+  network_id?: NetworkId;
+  from_area_id?: AreaId;
+  to_area_id?: AreaId;
+  from_timeframe_group_id?: TimeframeGroupId;
+  to_timeframe_group_id?: TimeframeGroupId;
+  fare_product_id: FareProductId;
+  rule_priority?: number;
+}
+
+export interface FareLegJoinRule {
+  from_network_id: NetworkId;
+  to_network_id: NetworkId;
+  from_stop_id?: StopId;
+  to_stop_id?: StopId;
+}
+
+export interface FareTransferRule {
+  from_leg_group_id?: LegGroupId;
+  to_leg_group_id?: LegGroupId;
+  transfer_count?: number;
+  duration_limit?: number;
+  duration_limit_type?: DurationLimit;
+  fare_transfer_type?: FareTransferType;
+  fare_product_id?: FareProductId;
+}
+
+export interface Area {
+  area_id: AreaId;
+  area_name?: string;
+}
+
+export interface StopArea {
+  area_id: AreaId;
+  stop_id: string;
+}
+
+export interface Network {
+  network_id: NetworkId;
+  network_name?: string;
+}
+
+export interface RouteNetwork {
+  network_id: NetworkId;
+  route_id: RouteId;
+}
+
+export interface LocationGroup {
+  location_group_id: LocationGroupId;
+  location_group_name?: string;
+}
+
+export interface LocationGroupStop {
+  location_group_id: LocationGroupId;
+  stop_id: StopId;
+}
+
+export interface BookingRule {
+  booking_rule_id: BookingRuleId;
+  booking_type: BookingType;
+  prior_notice_duration_min: number;
+  prior_notice_duration_max: number;
+  prior_notice_last_day?: number;
+  prior_notice_last_time?: string;
+  prior_notice_start_day?: number;
+  prior_notice_start_time?: string;
+  prior_notice_service_id?: ServiceId;
+  message?: string;
+  pickup_message?: string;
+  drop_off_message?: string;
+  phone_number?: string;
+  info_url?: string;
+  booking_url?: string;
 }
