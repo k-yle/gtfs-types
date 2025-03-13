@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 5.0.0 (2025-03-13)
+
+- mark many realtime properties as optional
+- add table-to-schema map and primary key map
+- fix types for realtime service alerts
+- add a type aliases for each kind of ID
+- fix two typos in enum values
+- add many new tables based on the latest version of the spec
+
 ## 4.0.0 (2024-05-18)
 
 - fix: convert `stop_time_update` to an array. The previous definition was not correct.
