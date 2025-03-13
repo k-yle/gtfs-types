@@ -445,3 +445,120 @@ export interface BookingRule {
   info_url?: string;
   booking_url?: string;
 }
+
+/** map between the file name and schema for each table */
+export interface GtfsFiles {
+  "agency.txt": Agency;
+  "calendar.txt": Calendar;
+  "calendar_dates.txt": CalendarDates;
+  "fare_rules.txt": FareRules;
+  "fare_attributes.txt": FareAttributes;
+  "feed_info.txt": FeedInfo;
+  "frequencies.txt": Frequencies;
+  "pathways.txt": Pathways;
+  "routes.txt": Route;
+  "shapes.txt": Shapes;
+  "stops.txt": Stop;
+  "stop_times.txt": StopTime;
+  "transfers.txt": Transfers;
+  "trips.txt": Trip;
+  "timeframes.txt": Timeframe;
+  "rider_categories.txt": RiderCategory;
+  "fare_media.txt": FareMedia;
+  "fare_products.txt": FareProduct;
+  "fare_leg_rules.txt": FareLegRule;
+  "fare_leg_join_rules.txt": FareLegJoinRule;
+  "fare_transfer_rules.txt": FareTransferRule;
+  "areas.txt": Area;
+  "stop_areas.txt": StopArea;
+  "networks.txt": Network;
+  "route_networks.txt": RouteNetwork;
+  "levels.txt": Levels;
+  "location_groups.txt": LocationGroup;
+  "location_group_stops.txt": LocationGroupStop;
+  "booking_rules.txt": BookingRule;
+  "translations.txt": Translations;
+  "attributions.txt": Attributions;
+}
+
+/** same as {@link Table}, except with a `.txt` suffix */
+export type GtfsFile = keyof GtfsFiles;
+
+/** same as {@link GtfsFile}, except without the `.txt` suffix */
+export type Table = keyof GtfsFiles extends `${infer T}.txt` ? T : never;
+
+/**
+ * - if it's a `string`, then the table has 1 primary key
+ * - if it's a `string[]`, then the primary key spans multiple columns
+ * - if it's `undefined`, then the table has no primary keys
+ */
+export const PRIMARY_KEYS = {
+  "agency.txt": "agency_id",
+  "calendar.txt": "service_id",
+  "calendar_dates.txt": ["service_id", "date"],
+  "fare_attributes.txt": "fare_id",
+  "fare_rules.txt": undefined,
+  "feed_info.txt": undefined,
+  "frequencies.txt": ["trip_id", "start_time"],
+  "routes.txt": "route_id",
+  "shapes.txt": ["shape_id", "shape_pt_sequence"],
+  "stops.txt": "stop_id",
+  "stop_times.txt": ["trip_id", "stop_sequence"],
+  "transfers.txt": [
+    "from_stop_id",
+    "to_stop_id",
+    "from_trip_id",
+    "to_trip_id",
+    "from_route_id",
+    "to_route_id",
+  ],
+  "trips.txt": "trip_id",
+  "pathways.txt": "pathway_id",
+  "timeframes.txt": undefined,
+  "rider_categories.txt": "rider_category_id",
+  "fare_media.txt": "fare_media_id",
+  "fare_products.txt": "fare_product_id",
+  "fare_leg_rules.txt": [
+    "network_id",
+    "from_area_id",
+    "to_area_id",
+    "from_timeframe_group_id",
+    "to_timeframe_group_id",
+    "fare_product_id",
+  ],
+  "fare_leg_join_rules.txt": [
+    "from_network_id",
+    "to_network_id",
+    "from_stop_id",
+    "to_stop_id",
+  ],
+  "fare_transfer_rules.txt": [
+    "from_leg_group_id",
+    "to_leg_group_id",
+    "fare_product_id",
+    "transfer_count",
+    "duration_limit",
+  ],
+  "areas.txt": "area_id",
+  "stop_areas.txt": ["area_id", "stop_id"],
+  "networks.txt": "network_id",
+  "route_networks.txt": "route_id",
+  "levels.txt": "level_id",
+  "location_groups.txt": "location_group_id",
+  "location_group_stops.txt": ["location_group_id", "stop_id"],
+  "booking_rules.txt": "booking_rule_id",
+  "translations.txt": [
+    "table_name",
+    "field_name",
+    "language",
+    "record_id",
+    "record_sub_id",
+    "field_value",
+  ],
+  "attributions.txt": "attribution_id",
+} satisfies {
+  [T in keyof GtfsFiles]:
+    | keyof GtfsFiles[T]
+    | (keyof GtfsFiles[T])[]
+    | undefined;
+};
