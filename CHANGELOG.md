@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 5.1.0 (2025-04-03)
+
+- add `NonStringDataTypes` as a runtime-level export
+
 ## 5.0.0 (2025-03-13)
 
 - mark many realtime properties as optional

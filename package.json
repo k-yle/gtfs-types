@@ -1,6 +1,6 @@
 {
   "name": "gtfs-types",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "author": "Kyle Hensel",
   "description": "🚂 Typescript definitions for the GTFS Standard",
   "license": "MIT",
