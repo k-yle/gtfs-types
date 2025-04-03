@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --ext .ts .",
-    "build": "tsc && rm -rf dist/test",
+    "build": "rm -rf dist && tsc && rm -rf dist/test",
     "trypublish": "npm publish --provenance || true"
   },
   "keywords": [

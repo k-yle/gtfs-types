@@ -558,3 +558,124 @@ export const PRIMARY_KEYS = {
     | (keyof GtfsFiles[T])[]
     | undefined;
 };
+
+export type NonStringDataTypes = "float" | "int";
+
+/** lists the fields with a non-string data type (see {@link NonStringDataTypes}) */
+export const DB_SCHEMA = {
+  "agency.txt": {},
+  "calendar.txt": {
+    monday: "int",
+    tuesday: "int",
+    wednesday: "int",
+    thursday: "int",
+    friday: "int",
+    saturday: "int",
+    sunday: "int",
+  },
+  "calendar_dates.txt": {
+    exception_type: "int",
+  },
+  "fare_attributes.txt": {
+    payment_method: "int",
+    price: "float",
+    transfer_duration: "int",
+  },
+  "fare_rules.txt": {},
+  "feed_info.txt": {},
+  "frequencies.txt": {
+    headway_secs: "int",
+  },
+  "routes.txt": {
+    route_sort_order: "int",
+    route_type: "int",
+  },
+  "shapes.txt": {
+    shape_dist_traveled: "float",
+    shape_pt_lat: "float",
+    shape_pt_lon: "float",
+    shape_pt_sequence: "int",
+  },
+  "stops.txt": {
+    location_type: "int",
+    stop_lat: "float",
+    stop_lon: "float",
+  },
+  "stop_times.txt": {
+    continuous_drop_off: "int",
+    continuous_pickup: "int",
+    drop_off_type: "int",
+    pickup_type: "int",
+    shape_dist_traveled: "float",
+    stop_sequence: "int",
+  },
+  "transfers.txt": {
+    min_transfer_time: "int",
+    transfer_type: "int",
+  },
+  "trips.txt": {
+    bikes_allowed: "int",
+    direction_id: "int",
+    wheelchair_accessible: "int",
+  },
+  "pathways.txt": {
+    is_bidirectional: "int",
+    length: "int",
+    max_slope: "int",
+    min_width: "int",
+    pathway_mode: "int",
+    stair_count: "int",
+    traversal_time: "int",
+  },
+  "timeframes.txt": {},
+  "rider_categories.txt": {
+    is_default_fare_category: "int",
+  },
+  "fare_media.txt": {
+    fare_media_type: "int",
+  },
+  "fare_products.txt": {
+    ammount: "int",
+  },
+  "fare_leg_rules.txt": {
+    rule_priority: "int",
+  },
+  "fare_leg_join_rules.txt": {},
+  "fare_transfer_rules.txt": {
+    duration_limit: "int",
+    duration_limit_type: "int",
+    fare_transfer_type: "int",
+    transfer_count: "int",
+  },
+  "areas.txt": {},
+  "stop_areas.txt": {},
+  "networks.txt": {},
+  "route_networks.txt": {},
+  "levels.txt": {
+    level_index: "float",
+  },
+  "location_groups.txt": {},
+  "location_group_stops.txt": {},
+  "booking_rules.txt": {
+    booking_type: "int",
+    prior_notice_duration_max: "int",
+    prior_notice_duration_min: "int",
+    prior_notice_last_day: "int",
+    prior_notice_start_day: "int",
+  },
+  "translations.txt": {},
+  "attributions.txt": {},
+} satisfies {
+  // this insanity is only evaluated at compile-time; the compiled files
+  // do not include the `satisfies` clause, so there is no performance
+  // impact to downstream consumers.
+  [File in keyof GtfsFiles]: {
+    [_ in {
+      [Field in keyof GtfsFiles[File]]: Required<
+        GtfsFiles[File]
+      >[Field] extends number
+        ? Field
+        : never;
+    }[keyof GtfsFiles[File]]]: NonStringDataTypes;
+  };
+};
