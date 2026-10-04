@@ -513,7 +513,11 @@ export const PRIMARY_KEYS = {
   "timeframes.txt": undefined,
   "rider_categories.txt": "rider_category_id",
   "fare_media.txt": "fare_media_id",
-  "fare_products.txt": "fare_product_id",
+  "fare_products.txt": [
+    "fare_product_id",
+    "rider_category_id",
+    "fare_media_id",
+  ],
   "fare_leg_rules.txt": [
     "network_id",
     "from_area_id",
