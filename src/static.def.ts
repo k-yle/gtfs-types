@@ -362,7 +362,7 @@ export interface FareProduct {
   fare_product_name?: string;
   rider_category_id?: RiderCategoryId;
   fare_media_id?: FareMediaId;
-  ammount: number;
+  amount: number;
   currency: string;
 }
 
@@ -635,7 +635,7 @@ export const DB_SCHEMA = {
     fare_media_type: "int",
   },
   "fare_products.txt": {
-    ammount: "int",
+    amount: "float",
   },
   "fare_leg_rules.txt": {
     rule_priority: "int",
