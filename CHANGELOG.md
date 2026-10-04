@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 5.1.1 (2026-10-04)
+
+- fix typo in fare_products
+- fix primary key for fare_products
+
 ## 5.1.0 (2025-04-03)
 
 - add `NonStringDataTypes` as a runtime-level export
