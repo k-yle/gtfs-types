@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 💥 BREAKING CHANGE: removed `Occupancy.UNKNOWN`, which doesn't actually exist in the spec.
 - 💥 BREAKING CHANGE: merged the `PickupDropoffType` enum into the `Alight` enum, which were basically the same
 - 💥 BREAKING CHANGE: changed many fields to be optional, to align with the spec.
+- add various missing fields
 - fix several numeric fields marked as strings in `DB_SCHEMA`
 - fix several float fields marked as ints in `DB_SCHEMA`
 - add primary keys for `fare_rules.txt` and `timeframes.txt`

@@ -14,6 +14,7 @@ export type FareMediaId = string;
 export type FareProductId = string;
 export type LegGroupId = string;
 export type LevelId = string;
+export type LocationId = string;
 export type LocationGroupId = string;
 export type NetworkId = string;
 export type PathwayId = string;
@@ -60,6 +61,11 @@ export enum LocationType {
   ENTRANCE_EXIT,
   GENERIC_NODE,
   BOARDING_AREA,
+}
+
+export enum StopAccess {
+  VIA_PARENT_STATION = 0,
+  DIRECT,
 }
 
 export enum WheelchairBoardingType {
@@ -139,12 +145,14 @@ export interface Agency {
   agency_phone?: string;
   agency_fare_url?: string;
   agency_email?: string;
+  cemv_support?: GTFSBool;
 }
 
 export interface Stop {
   stop_id: StopId;
   stop_code?: string;
   stop_name?: string;
+  tts_stop_name?: string;
   stop_desc?: string;
   stop_lat?: number;
   stop_lon?: number;
@@ -156,6 +164,7 @@ export interface Stop {
   wheelchair_boarding?: WheelchairBoardingType;
   level_id?: LevelId;
   platform_code?: string;
+  stop_access?: StopAccess;
 }
 
 export interface Route {
@@ -171,6 +180,8 @@ export interface Route {
   route_sort_order?: number;
   continuous_pickup?: Alight;
   continuous_drop_off?: Alight;
+  network_id?: NetworkId;
+  cemv_support?: GTFSBool;
 }
 
 export interface Trip {
@@ -184,6 +195,9 @@ export interface Trip {
   shape_id?: ShapeId;
   wheelchair_accessible?: GTFSBool;
   bikes_allowed?: GTFSBool;
+  cars_allowed?: GTFSBool;
+  safe_duration_factor?: number;
+  safe_duration_offset?: number;
 }
 
 export interface StopTime {
@@ -192,14 +206,20 @@ export interface StopTime {
   departure_time?: string;
   /** technically this is optional if `location_group_id` or `location_id` is specified */
   stop_id: StopId;
+  location_group_id?: LocationGroupId;
+  location_id?: LocationId;
   stop_sequence: number;
   stop_headsign?: string;
+  start_pickup_drop_off_window?: string;
+  end_pickup_drop_off_window?: string;
   pickup_type?: Alight;
   drop_off_type?: Alight;
   continuous_pickup?: Alight;
   continuous_drop_off?: Alight;
   shape_dist_traveled?: number;
   timepoint?: 0 | 1;
+  pickup_booking_rule_id?: BookingRuleId;
+  drop_off_booking_rule_id?: BookingRuleId;
 }
 
 export interface Calendar {
@@ -572,7 +592,9 @@ export type NonStringDataTypes = "float" | "int";
 
 /** lists the fields with a non-string data type (see {@link NonStringDataTypes}) */
 export const DB_SCHEMA = {
-  "agency.txt": {},
+  "agency.txt": {
+    cemv_support: "int",
+  },
   "calendar.txt": {
     monday: "int",
     tuesday: "int",
@@ -598,6 +620,7 @@ export const DB_SCHEMA = {
     headway_secs: "int",
   },
   "routes.txt": {
+    cemv_support: "int",
     continuous_drop_off: "int",
     continuous_pickup: "int",
     route_sort_order: "int",
@@ -611,6 +634,7 @@ export const DB_SCHEMA = {
   },
   "stops.txt": {
     location_type: "int",
+    stop_access: "int",
     stop_lat: "float",
     stop_lon: "float",
     wheelchair_boarding: "int",
@@ -630,7 +654,10 @@ export const DB_SCHEMA = {
   },
   "trips.txt": {
     bikes_allowed: "int",
+    cars_allowed: "int",
     direction_id: "int",
+    safe_duration_factor: "float",
+    safe_duration_offset: "float",
     wheelchair_accessible: "int",
   },
   "pathways.txt": {
