@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 6.0.0 (2026-11-11)
+
 - 💥 BREAKING CHANGE: removed `| ""` from a small number of union types. The proper way to express this is by indicating that the column is optional.
   - for `fare_attributes.transfers`, this field is now optional, and the enum member `TransfersNumber.UNLIMITED_TRANSFERS_ARE_PERMITTED` has been removed.
 - 💥 BREAKING CHANGE: fix wrong enum values for `Cause`, `Effect`, and `SeverityLevel`, which were off-by-one.
