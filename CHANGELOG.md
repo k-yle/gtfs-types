@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - 💥 BREAKING CHANGE: removed `| ""` from a small number of union types. The proper way to express this is by indicating that the column is optional.
-  - for `fare_attributes.transfers`, this field is now, and the enum member `TransfersNumber.UNLIMITED_TRANSFERS_ARE_PERMITTED` has been removed.
+  - for `fare_attributes.transfers`, this field is now optional, and the enum member `TransfersNumber.UNLIMITED_TRANSFERS_ARE_PERMITTED` has been removed.
 - 💥 BREAKING CHANGE: fix wrong enum values for `Cause`, `Effect`, and `SeverityLevel`, which were off-by-one.
 - 💥 BREAKING CHANGE: removed `Occupancy.UNKNOWN`, which doesn't actually exist in the spec.
 - 💥 BREAKING CHANGE: merged the `PickupDropoffType` enum into the `Alight` enum, which were basically the same

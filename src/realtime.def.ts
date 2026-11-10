@@ -7,6 +7,7 @@ import {
   TripId,
   WheelchairBoardingType,
   ZoneId,
+  type Alight,
 } from "./static.def";
 
 export enum Occupancy {
@@ -55,7 +56,10 @@ interface RealTimeTrip {
 
 export enum TripScheduleRelationship {
   SCHEDULED,
-  /** @deprecated because the behaviour of this value was unspecified */
+  /**
+   * @deprecated because the behaviour of this value was unspecified
+   * @see {@link https://gtfs.org/documentation/realtime/examples/migration-duplicated}
+   */
   ADDED,
   UNSCHEDULED,
   CANCELED,
@@ -199,7 +203,10 @@ export interface TranslatedImage {
 }
 
 export interface Alert {
-  /** @deprecated use `communication_period` and `impact_period` instead */
+  /**
+   * @deprecated use `communication_period` and `impact_period` instead
+   * @see {@link https://gtfs.org/documentation/realtime/examples/migration-active-period}
+   */
   active_period?: TimeRange[];
   communication_period?: TimeRange[];
   impact_period?: TimeRange[];
@@ -226,18 +233,11 @@ export interface Position {
   speed?: number;
 }
 
-export enum DropOffPickupType {
-  REGULAR,
-  NONE,
-  PHONE_AGENCY,
-  COORDINATE_WITH_DRIVER,
-}
-
 export interface StopTimeProperties {
   assigned_stop_id?: StopId;
   stop_headsign?: string;
-  pickup_type?: DropOffPickupType;
-  drop_off_type?: DropOffPickupType;
+  pickup_type?: Alight;
+  drop_off_type?: Alight;
 }
 
 export interface StopTimeUpdate {
