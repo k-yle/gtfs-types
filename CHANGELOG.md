@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 💥 BREAKING CHANGE: fix wrong enum values for `Cause`, `Effect`, and `SeverityLevel`, which were off-by-one.
 - 💥 BREAKING CHANGE: removed `Occupancy.UNKNOWN`, which doesn't actually exist in the spec.
 - 💥 BREAKING CHANGE: merged the `PickupDropoffType` enum into the `Alight` enum, which were basically the same
+- 💥 BREAKING CHANGE: changed many fields to be optional, to align with the spec.
 - fix several numeric fields marked as strings in `DB_SCHEMA`
 - fix several float fields marked as ints in `DB_SCHEMA`
 

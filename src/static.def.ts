@@ -190,6 +190,7 @@ export interface StopTime {
   trip_id: TripId;
   arrival_time?: string;
   departure_time?: string;
+  /** technically this is optional if `location_group_id` or `location_id` is specified */
   stop_id: StopId;
   stop_sequence: number;
   stop_headsign?: string;
@@ -256,14 +257,14 @@ export interface Frequencies {
 }
 
 export interface Transfers {
-  from_stop_id: StopId;
-  to_stop_id: StopId;
+  from_stop_id?: StopId;
+  to_stop_id?: StopId;
   from_route_id?: RouteId;
   to_route_id?: RouteId;
   from_trip_id?: TripId;
   to_trip_id?: TripId;
   transfer_type: TransferType;
-  min_transfer_time: number;
+  min_transfer_time?: number;
 }
 
 export interface Pathways {
@@ -291,12 +292,12 @@ export interface FeedInfo {
   feed_publisher_name: string;
   feed_publisher_url: string;
   feed_lang: string;
-  default_lang: string;
-  feed_start_date: string;
-  feed_end_date: string;
-  feed_version: string;
-  feed_contact_email: string;
-  feed_contact_url: string;
+  default_lang?: string;
+  feed_start_date?: string;
+  feed_end_date?: string;
+  feed_version?: string;
+  feed_contact_email?: string;
+  feed_contact_url?: string;
 }
 
 export interface Translations {
@@ -340,8 +341,8 @@ export interface Timeframe {
 export interface RiderCategory {
   rider_category_id: RiderCategoryId;
   rider_category_name: string;
-  is_default_fare_category: 0 | 1;
-  eligibility_url: string;
+  is_default_fare_category?: 0 | 1;
+  eligibility_url?: string;
 }
 
 export interface FareMedia {
@@ -383,7 +384,7 @@ export interface FareTransferRule {
   transfer_count?: number;
   duration_limit?: number;
   duration_limit_type?: DurationLimit;
-  fare_transfer_type?: FareTransferType;
+  fare_transfer_type: FareTransferType;
   fare_product_id?: FareProductId;
 }
 
@@ -420,8 +421,8 @@ export interface LocationGroupStop {
 export interface BookingRule {
   booking_rule_id: BookingRuleId;
   booking_type: BookingType;
-  prior_notice_duration_min: number;
-  prior_notice_duration_max: number;
+  prior_notice_duration_min?: number;
+  prior_notice_duration_max?: number;
   prior_notice_last_day?: number;
   prior_notice_last_time?: string;
   prior_notice_start_day?: number;
