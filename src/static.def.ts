@@ -84,7 +84,6 @@ export enum TransfersNumber {
   NO_TRANSFERS_PERMITTED,
   RIDERS_MAY_TRANSFER_ONCE,
   RIDERS_MAY_TRANSFER_TWICE,
-  UNLIMITED_TRANSFERS_ARE_PERMITTED = "",
 }
 
 export enum PathwayMode {
@@ -161,7 +160,7 @@ export interface Stop {
   location_type?: LocationType;
   parent_station?: string;
   stop_timezone?: string;
-  wheelchair_boarding?: WheelchairBoardingType | "";
+  wheelchair_boarding?: WheelchairBoardingType;
   level_id?: LevelId;
   platform_code?: string;
 }
@@ -177,8 +176,8 @@ export interface Route {
   route_color?: string;
   route_text_color?: string;
   route_sort_order?: number;
-  continuous_pickup?: PickupDropoffType | "";
-  continuous_drop_off?: PickupDropoffType | "";
+  continuous_pickup?: PickupDropoffType;
+  continuous_drop_off?: PickupDropoffType;
 }
 
 export interface Trip {
@@ -206,7 +205,7 @@ export interface StopTime {
   continuous_pickup?: Alight;
   continuous_drop_off?: Alight;
   shape_dist_traveled?: number;
-  timepoint?: 0 | 1 | "";
+  timepoint?: 0 | 1;
 }
 
 export interface Calendar {
@@ -233,7 +232,8 @@ export interface FareAttributes {
   price: number;
   currency_type: string;
   payment_method: PaymentMethod;
-  transfers: TransfersNumber;
+  /** if absent, unlimited transfers are permitted */
+  transfers?: TransfersNumber;
   agency_id?: AgencyId;
   transfer_duration?: number;
 }
@@ -259,7 +259,7 @@ export interface Frequencies {
   start_time: string;
   end_time: string;
   headway_secs: number;
-  exact_times?: 0 | 1 | "";
+  exact_times?: 0 | 1;
 }
 
 export interface Transfers {
@@ -329,9 +329,9 @@ export interface Attributions {
   route_id?: RouteId;
   trip_id?: TripId;
   organization_name: string;
-  is_producer?: 0 | 1 | "";
-  is_operator?: 0 | 1 | "";
-  is_authority?: 0 | 1 | "";
+  is_producer?: 0 | 1;
+  is_operator?: 0 | 1;
+  is_authority?: 0 | 1;
   attribution_url?: string;
   attribution_email?: string;
   attribution_phone?: string;
@@ -584,13 +584,17 @@ export const DB_SCHEMA = {
     payment_method: "int",
     price: "float",
     transfer_duration: "int",
+    transfers: "int",
   },
   "fare_rules.txt": {},
   "feed_info.txt": {},
   "frequencies.txt": {
+    exact_times: "int",
     headway_secs: "int",
   },
   "routes.txt": {
+    continuous_drop_off: "int",
+    continuous_pickup: "int",
     route_sort_order: "int",
     route_type: "int",
   },
@@ -604,6 +608,7 @@ export const DB_SCHEMA = {
     location_type: "int",
     stop_lat: "float",
     stop_lon: "float",
+    wheelchair_boarding: "int",
   },
   "stop_times.txt": {
     continuous_drop_off: "int",
@@ -612,6 +617,7 @@ export const DB_SCHEMA = {
     pickup_type: "int",
     shape_dist_traveled: "float",
     stop_sequence: "int",
+    timepoint: "int",
   },
   "transfers.txt": {
     min_transfer_time: "int",
@@ -624,9 +630,9 @@ export const DB_SCHEMA = {
   },
   "pathways.txt": {
     is_bidirectional: "int",
-    length: "int",
-    max_slope: "int",
-    min_width: "int",
+    length: "float",
+    max_slope: "float",
+    min_width: "float",
     pathway_mode: "int",
     stair_count: "int",
     traversal_time: "int",
@@ -668,7 +674,11 @@ export const DB_SCHEMA = {
     prior_notice_start_day: "int",
   },
   "translations.txt": {},
-  "attributions.txt": {},
+  "attributions.txt": {
+    is_authority: "int",
+    is_operator: "int",
+    is_producer: "int",
+  },
 } satisfies {
   // this insanity is only evaluated at compile-time; the compiled files
   // do not include the `satisfies` clause, so there is no performance

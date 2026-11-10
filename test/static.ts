@@ -12,6 +12,7 @@ const myRoute: Route = {
   route_text_color: "#fff",
   route_sort_order: 2,
   continuous_pickup: 1,
+  // @ts-expect-error empty values should be omitted
   continuous_drop_off: "",
 };
 
