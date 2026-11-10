@@ -1,5 +1,7 @@
 import {
+  AgencyId,
   LevelId,
+  RouteId,
   ShapeId,
   StopId,
   TripId,
@@ -42,11 +44,11 @@ export interface ModifiedTripSelector {
 }
 
 interface RealTimeTrip {
-  trip_id?: string;
+  trip_id?: TripId;
   start_time?: string;
   start_date?: string;
   schedule_relationship?: TripScheduleRelationship;
-  route_id?: string;
+  route_id?: RouteId;
   direction_id?: number;
   modified_trip?: ModifiedTripSelector;
 }
@@ -114,7 +116,7 @@ export interface VehiclePosition {
   trip?: RealTimeTrip;
   position?: Position;
   current_stop_sequence?: number;
-  stop_id?: string;
+  stop_id?: StopId;
   current_status?: VehicleStopStatus;
   congestion_level?: Congestion;
   occupancy_status?: Occupancy;
@@ -240,7 +242,7 @@ export interface StopTimeProperties {
 
 export interface StopTimeUpdate {
   stop_sequence?: number;
-  stop_id?: string;
+  stop_id?: StopId;
   arrival?: Time;
   departure?: Time;
   departure_occupancy_status?: Occupancy;
@@ -249,12 +251,12 @@ export interface StopTimeUpdate {
 }
 
 export interface EntitySelector {
-  agency_id?: string;
-  route_id?: string;
+  agency_id?: AgencyId;
+  route_id?: RouteId;
   route_type?: number;
   direction_id?: number;
   trip?: RealTimeTrip;
-  stop_id?: string;
+  stop_id?: StopId;
 }
 
 export enum VehicleStopStatus {

@@ -159,7 +159,7 @@ export interface Stop {
   zone_id?: ZoneId;
   stop_url?: string;
   location_type?: LocationType;
-  parent_station?: string;
+  parent_station?: StopId;
   stop_timezone?: string;
   wheelchair_boarding?: WheelchairBoardingType;
   level_id?: LevelId;
@@ -415,7 +415,7 @@ export interface Area {
 
 export interface StopArea {
   area_id: AreaId;
-  stop_id: string;
+  stop_id: StopId;
 }
 
 export interface Network {
