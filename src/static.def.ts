@@ -487,7 +487,13 @@ export const PRIMARY_KEYS = {
   "calendar.txt": "service_id",
   "calendar_dates.txt": ["service_id", "date"],
   "fare_attributes.txt": "fare_id",
-  "fare_rules.txt": undefined,
+  "fare_rules.txt": [
+    "fare_id",
+    "route_id",
+    "origin_id",
+    "destination_id",
+    "contains_id",
+  ],
   "feed_info.txt": undefined,
   "frequencies.txt": ["trip_id", "start_time"],
   "routes.txt": "route_id",
@@ -504,7 +510,12 @@ export const PRIMARY_KEYS = {
   ],
   "trips.txt": "trip_id",
   "pathways.txt": "pathway_id",
-  "timeframes.txt": undefined,
+  "timeframes.txt": [
+    "timeframe_group_id",
+    "start_time",
+    "end_time",
+    "service_id",
+  ],
   "rider_categories.txt": "rider_category_id",
   "fare_media.txt": "fare_media_id",
   "fare_products.txt": [

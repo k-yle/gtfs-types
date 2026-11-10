@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 💥 BREAKING CHANGE: changed many fields to be optional, to align with the spec.
 - fix several numeric fields marked as strings in `DB_SCHEMA`
 - fix several float fields marked as ints in `DB_SCHEMA`
+- add primary keys for `fare_rules.txt` and `timeframes.txt`
 
 ## 5.1.1 (2026-10-04)
 
