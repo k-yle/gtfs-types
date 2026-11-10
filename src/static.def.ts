@@ -68,13 +68,6 @@ export enum WheelchairBoardingType {
   NOT_ACCESSIBLE,
 }
 
-export enum PickupDropoffType {
-  CONTINUOUS = 0,
-  NON_CONTINUOUS,
-  MUST_CONTACT_AGENCY,
-  MUST_CONTACT_DRIVER,
-}
-
 export enum PaymentMethod {
   PAID_ON_BOARD,
   PAID_BEFORE_BOARDING,
@@ -176,8 +169,8 @@ export interface Route {
   route_color?: string;
   route_text_color?: string;
   route_sort_order?: number;
-  continuous_pickup?: PickupDropoffType;
-  continuous_drop_off?: PickupDropoffType;
+  continuous_pickup?: Alight;
+  continuous_drop_off?: Alight;
 }
 
 export interface Trip {

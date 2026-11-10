@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - for `fare_attributes.transfers`, this field is now, and the enum member `TransfersNumber.UNLIMITED_TRANSFERS_ARE_PERMITTED` has been removed.
 - 💥 BREAKING CHANGE: fix wrong enum values for `Cause`, `Effect`, and `SeverityLevel`, which were off-by-one.
 - 💥 BREAKING CHANGE: removed `Occupancy.UNKNOWN`, which doesn't actually exist in the spec.
+- 💥 BREAKING CHANGE: merged the `PickupDropoffType` enum into the `Alight` enum, which were basically the same
 - fix several numeric fields marked as strings in `DB_SCHEMA`
 - fix several float fields marked as ints in `DB_SCHEMA`
 
