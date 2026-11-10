@@ -1,3 +1,12 @@
+import {
+  LevelId,
+  ShapeId,
+  StopId,
+  TripId,
+  WheelchairBoardingType,
+  ZoneId,
+} from "./static.def";
+
 export enum Occupancy {
   EMPTY,
   MANY_SEATS_AVAILABLE,
@@ -22,6 +31,14 @@ declare interface Time {
   delay?: number;
   time?: number;
   uncertainty?: number;
+  scheduled_time?: number;
+}
+
+export interface ModifiedTripSelector {
+  modifications_id: string;
+  affected_trip_id: TripId;
+  start_time?: string;
+  start_date?: string;
 }
 
 interface RealTimeTrip {
@@ -31,25 +48,49 @@ interface RealTimeTrip {
   schedule_relationship?: TripScheduleRelationship;
   route_id?: string;
   direction_id?: number;
+  modified_trip?: ModifiedTripSelector;
 }
 
 export enum TripScheduleRelationship {
   SCHEDULED,
+  /** @deprecated because the behaviour of this value was unspecified */
   ADDED,
   UNSCHEDULED,
   CANCELED,
+  REPLACEMENT = 5,
+  DUPLICATED,
+  DELETED,
+  NEW,
 }
 
 export enum StopTimeUpdateScheduleRelationship {
   SCHEDULED,
   SKIPPED,
   NO_DATA,
+  UNSCHEDULED,
+}
+
+export enum WheelchairAccessible {
+  NO_VALUE,
+  UNKNOWN,
+  WHEELCHAIR_ACCESSIBLE,
+  WHEELCHAIR_INACCESSIBLE,
 }
 
 export interface Vehicle {
   id?: string;
   label?: string;
   license_plate?: string;
+  wheelchair_accessible?: WheelchairAccessible;
+}
+
+export interface TripProperties {
+  trip_id?: TripId;
+  start_date?: string;
+  start_time?: string;
+  shape_id?: ShapeId;
+  trip_headsign?: string;
+  trip_short_name?: string;
 }
 
 export interface TripUpdate {
@@ -58,6 +99,15 @@ export interface TripUpdate {
   vehicle?: Vehicle;
   timestamp?: number;
   delay?: number;
+  trip_properties?: TripProperties;
+}
+
+export interface CarriageDetails {
+  id?: string;
+  label?: string;
+  occupancy_status?: Occupancy;
+  occupancy_percentage?: number;
+  carriage_sequence: number;
 }
 
 export interface VehiclePosition {
@@ -68,6 +118,8 @@ export interface VehiclePosition {
   current_status?: VehicleStopStatus;
   congestion_level?: Congestion;
   occupancy_status?: Occupancy;
+  occupancy_percentage?: number;
+  multi_carriage_details?: CarriageDetails[];
   vehicle?: Vehicle;
   timestamp?: number;
 }
@@ -78,6 +130,9 @@ export interface Entity {
   vehicle?: VehiclePosition;
   is_deleted?: boolean;
   alert?: Alert;
+  shape?: RealTimeShape;
+  stop?: RealTimeStop;
+  trip_modifications?: TripModifications;
 }
 
 export interface TimeRange {
@@ -98,6 +153,7 @@ export enum Cause {
   CONSTRUCTION,
   POLICE_ACTIVITY,
   MEDICAL_EMERGENCY,
+  SPECIAL_EVENT,
 }
 
 export enum Effect {
@@ -130,8 +186,21 @@ export interface Translation {
   language?: string;
 }
 
+export interface LocalizedImage {
+  url: string;
+  media_type: string;
+  language?: string;
+}
+
+export interface TranslatedImage {
+  localized_image: LocalizedImage[];
+}
+
 export interface Alert {
+  /** @deprecated use `communication_period` and `impact_period` instead */
   active_period?: TimeRange[];
+  communication_period?: TimeRange[];
+  impact_period?: TimeRange[];
   informed_entity: EntitySelector[];
   cause?: Cause;
   effect?: Effect;
@@ -141,6 +210,10 @@ export interface Alert {
   tts_header_text?: TranslatedString;
   tts_description_text?: TranslatedString;
   severity_level?: SeverityLevel;
+  image?: TranslatedImage;
+  image_alternative_text?: TranslatedString;
+  cause_detail?: TranslatedString;
+  effect_detail?: TranslatedString;
 }
 
 export interface Position {
@@ -151,12 +224,28 @@ export interface Position {
   speed?: number;
 }
 
+export enum DropOffPickupType {
+  REGULAR,
+  NONE,
+  PHONE_AGENCY,
+  COORDINATE_WITH_DRIVER,
+}
+
+export interface StopTimeProperties {
+  assigned_stop_id?: StopId;
+  stop_headsign?: string;
+  pickup_type?: DropOffPickupType;
+  drop_off_type?: DropOffPickupType;
+}
+
 export interface StopTimeUpdate {
   stop_sequence?: number;
   stop_id?: string;
   arrival?: Time;
   departure?: Time;
+  departure_occupancy_status?: Occupancy;
   schedule_relationship?: StopTimeUpdateScheduleRelationship;
+  stop_time_properties?: StopTimeProperties;
 }
 
 export interface EntitySelector {
@@ -183,6 +272,63 @@ export interface FeedHeader {
   gtfs_realtime_version: string;
   incrementality: Incrementality;
   timestamp: number;
+  feed_version?: string;
+}
+
+/** a shape, which is not necessarily in the static GTFS feed */
+export interface RealTimeShape {
+  shape_id: ShapeId;
+  /** encoded using the Google Polyline Algorithm */
+  encoded_polyline: string;
+}
+
+/** a stop, which is not necessarily in the static GTFS feed */
+export interface RealTimeStop {
+  stop_id: StopId;
+  stop_code?: TranslatedString;
+  stop_name: TranslatedString;
+  tts_stop_name?: TranslatedString;
+  stop_desc?: TranslatedString;
+  stop_lat: number;
+  stop_lon: number;
+  zone_id?: ZoneId;
+  stop_url?: TranslatedString;
+  parent_station?: StopId;
+  stop_timezone?: string;
+  wheelchair_boarding?: WheelchairBoardingType;
+  level_id?: LevelId;
+  platform_code?: TranslatedString;
+}
+
+export interface StopSelector {
+  stop_sequence?: number;
+  stop_id?: StopId;
+}
+
+export interface ReplacementStop {
+  travel_time_to_stop?: number;
+  stop_id: StopId;
+}
+
+export interface Modification {
+  start_stop_selector: StopSelector;
+  end_stop_selector?: StopSelector;
+  propagated_modification_delay?: number;
+  replacement_stops?: ReplacementStop[];
+  service_alert_id?: string;
+  last_modified_time?: number;
+}
+
+export interface SelectedTrips {
+  trip_ids: TripId[];
+  shape_id: ShapeId;
+}
+
+export interface TripModifications {
+  selected_trips: SelectedTrips[];
+  start_times?: string[];
+  service_dates: string[];
+  modifications: Modification[];
 }
 
 export interface FeedMessage {
