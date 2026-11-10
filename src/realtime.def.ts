@@ -8,7 +8,6 @@ export enum Occupancy {
   NOT_ACCEPTING_PASSENGERS,
   NO_DATA_AVAILABLE,
   NOT_BOARDABLE,
-  UNKNOWN = -1,
 }
 
 export enum Congestion {
@@ -87,7 +86,7 @@ export interface TimeRange {
 }
 
 export enum Cause {
-  UNKNOWN_CAUSE,
+  UNKNOWN_CAUSE = 1,
   OTHER_CAUSE,
   TECHNICAL_PROBLEM,
   STRIKE,
@@ -102,7 +101,7 @@ export enum Cause {
 }
 
 export enum Effect {
-  NO_SERVICE,
+  NO_SERVICE = 1,
   REDUCED_SERVICE,
   SIGNIFICANT_DELAYS,
   DETOUR,
@@ -116,7 +115,7 @@ export enum Effect {
 }
 
 export enum SeverityLevel {
-  UNKNOWN_SEVERITY,
+  UNKNOWN_SEVERITY = 1,
   INFO,
   WARNING,
   SEVERE,
